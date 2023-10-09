@@ -61,6 +61,7 @@
                             <tbody>
                                 <?php $i = 1; ?>
                                 <?php foreach ($billing as $b) : ?>
+
                                     <tr>
                                         <td><?= $i++; ?></td>
                                         <td><?= $b['name_client']; ?></td>
