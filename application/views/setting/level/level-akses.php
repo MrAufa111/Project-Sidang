@@ -16,15 +16,12 @@
     </div><!-- /.container-fluid -->
 </section>
 
-
 <!-- Main content -->
 <section class="content">
-
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
             <h3 class="card-title"></h3>
-
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
@@ -37,20 +34,18 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-12">
-
                     <span class="h5">Role : <?= $role['role'] ?></span>
-
                 </div>
             </div>
             <div class="card mt-3">
                 <div class="card-body">
-                    <div class="table-resposive">
+                    <div class="table-responsive">
                         <table class="table" id="dataTable">
                             <thead>
                                 <tr>
                                     <th style="width: 5%;">No</th>
                                     <th style="width: 80%;">Nama Role</th>
-                                    <th>Action</th>
+                                    <th colspan="4" style="text-align: center;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,9 +56,33 @@
                                         <td><?= $m['menu']; ?></td>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" <?= check_akses($role['id'], $m['id']); ?> data-role="<?= $role['id']; ?>" data-menu="<?= $m['id']; ?>">
-                                                <label class="form-check-label" for="flexCheckDefault">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" <?= check_akses($role['id'], $m['id'],); ?> data-role="<?= $role['id']; ?>" data-menu="<?= $m['id']; ?>">
+                                                <label class="form-check-label" for="showCheck_<?= $m['id'] ?>">
                                                     Show
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" data-role="<?= $role['id']; ?>" data-menu="<?= $m['id']; ?>" data-input="input{<?= $m['id']; ?>}">
+                                                <label class="form-check-label" for="inputCheck_<?= $m['id'] ?>">
+                                                    Input
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" data-role="<?= $role['id']; ?>" data-menu="<?= $m['id']; ?>" data-update="update{<?= $m['id']; ?>}">
+                                                <label class="form-check-label" for="updateCheck_<?= $m['id'] ?>">
+                                                    Update
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" data-role="<?= $role['id']; ?>" data-menu="<?= $m['id']; ?>" data-delete="delete{<?= $m['id']; ?>}">
+                                                <label class="form-check-label" for="deleteCheck_<?= $m['id'] ?>">
+                                                    Delete
                                                 </label>
                                             </div>
                                         </td>
@@ -71,22 +90,31 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                        <button type="button" id="saveAccess" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </section>
 <script src="<?= base_url(); ?>assets/vendor/jquery/jquery-3.6.0.min.js"></script>
 <script>
     $('.form-check-input').on('click', function() {
-        var roleId = this.getAttribute("data-role");
-        var menuId = this.getAttribute("data-menu");
+        let roleId = this.getAttribute("data-role");
+        let menuId = this.getAttribute("data-menu");
+        let input_acc = this.getAttribute("data-input");
+        let update_acc = this.getAttribute("data-update");
+        let delete_acc = this.getAttribute("data-delete");
+        console.log(roleId, menuId, input_acc, update_acc, delete_acc);
         $.ajax({
             url: "<?= base_url('level_akses/ubahakses'); ?>",
             type: 'POST',
             data: {
                 menuId: menuId,
                 roleId: roleId,
+                input_acc: input_acc,
+                delete_acc: delete_acc,
+                update_acc: update_acc,
             },
             success: function() {
                 document.location.href = "<?= base_url('level_akses/roleakses/'); ?>" + roleId

@@ -34,6 +34,7 @@
                 </button>
             </div>
         </div>
+
         <div class="card-body">
             <button class="btn btn-primary mb-3" id="btnadd">Add Level</button>
             <div class="card mt-3">
@@ -52,7 +53,7 @@
                                 <?php foreach ($level as $l) : ?>
                                     <tr>
                                         <td style="text-align: center;"><?= $i++; ?></td>
-                                        <td><a href="<?= base_url(); ?>level_akses/roleakses/<?= $l['id']; ?>" style="text-decoration: none; color:black;"><?= $l['role']; ?></a></td>
+                                        <td><a href="<?= base_url('level_akses/roleakses/' . $l['id'])  ?>" class="btn-action" data-id="<?= $l['role'] ?>" style="text-decoration: none; color:black;"><?= $l['role']; ?></a></td>
                                         <td>
                                             <!-- <a href="" class="btn btn-secondary"><i class="fas fa-pen"></i></a>|<a href="" class="btn btn-danger btn-hapus"><i class="fas fa-trash-alt"></i></a> -->
                                             <div class="btn-group" role="group" aria-label="Basic example">
@@ -114,6 +115,8 @@
         </div>
     </div>
 </div>
+
+
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
