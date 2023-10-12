@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Crud extends CI_Controller
+class Setup_document extends CI_Controller
 {
     public function __construct()
     {
@@ -13,7 +13,6 @@ class Crud extends CI_Controller
         $data['title'] = '';
         $data['abc'] = 'user/tamdata';
         $this->load->view('user/templates/index', $data);
-
     }
     public function editdoc($id)
     {
