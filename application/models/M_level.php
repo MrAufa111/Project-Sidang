@@ -25,4 +25,16 @@ class M_level extends CI_model
     {
         return $this->db->get('user_menu')->result_array();
     }
+
+    public function update_access($role_id, $menu_id, $action, $value)
+    {
+        $data = array(
+            $action  => $value
+        );
+
+
+        $this->db->where('role_id', $role_id);
+        $this->db->where('menu_id', $menu_id);
+        $this->db->update('user_access_menu', $data);
+    }
 }
