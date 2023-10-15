@@ -1,6 +1,6 @@
 <div class="swal" data-swal="<?= $this->session->flashdata('notif'); ?>"></div>
 <div class="swal-error" data-swalerror="<?= $this->session->flashdata('error'); ?>"></div>
-<section class="content-header">
+<!-- <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -13,12 +13,11 @@
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
-</section>
+    </div>
+</section> -->
 
 <!-- Main content -->
-<section class="content">
-    <!-- Default box -->
+<!-- <section class="content">
     <div class="card">
         <div class="card-header">
             <h3 class="card-title"></h3>
@@ -96,9 +95,99 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Data Tables</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item">Tables</li>
+                <li class="breadcrumb-item active">Data</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Datatables</h5>
+                        <!-- Table with stripped rows -->
+                        <table class="table" id="">
+                            <thead>
+                                <tr>
+                                    <th style="width: 5%;">No</th>
+                                    <th style="width: 80%;">Nama Role</th>
+                                    <th colspan="4" style="text-align: center;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1; ?>
+                                <?php foreach ($menu as $m) : ?>
+                                    <tr>
+                                        <td><?= $i++; ?></td>
+                                        <td><?= $m['menu']; ?></td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" <?= check_akses($role['id'], $m['id'],); ?> data-role="<?= $role['id']; ?>" data-menu="<?= $m['id']; ?>">
+                                                <label class="form-check-label" for="showCheck_<?= $m['id'] ?>">
+                                                    Show
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" data-role="<?= $role['id']; ?>" data-menu="<?= $m['id']; ?>" data-input="input{<?= $m['id']; ?>}">
+                                                <label class="form-check-label" for="inputCheck_<?= $m['id'] ?>">
+                                                    Input
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" data-role="<?= $role['id']; ?>" data-menu="<?= $m['id']; ?>" data-update="update{<?= $m['id']; ?>}">
+                                                <label class="form-check-label" for="updateCheck_<?= $m['id'] ?>">
+                                                    Update
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" data-role="<?= $role['id']; ?>" data-menu="<?= $m['id']; ?>" data-delete="delete{<?= $m['id']; ?>}">
+                                                <label class="form-check-label" for="deleteCheck_<?= $m['id'] ?>">
+                                                    Delete
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
 <script src="<?= base_url(); ?>assets/vendor/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 <script>
+    var table = $("#dataTable").DataTable();
+
+    $("#dataTable tbody").on("click", "tr", function() {
+        var data = table.row(this).data();
+    });
     $('.form-check-input').on('click', function() {
         let roleId = this.getAttribute("data-role");
         let menuId = this.getAttribute("data-menu");
