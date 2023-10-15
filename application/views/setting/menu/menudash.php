@@ -1,6 +1,6 @@
 <div class="swal" data-swal="<?= $this->session->flashdata('notif'); ?>"></div>
 <div class="swal-error" data-swalerror="<?= $this->session->flashdata('error'); ?>"></div>
-<section class="content-header">
+<!-- <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -13,13 +13,12 @@
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
-</section>
+    </div>
+</section> -->
 
 <!-- Main content -->
-<section class="content">
+<!-- <section class="content">
 
-    <!-- Default box -->
     <div class="card">
         <div class="card-header">
             <h3 class="card-title"></h3>
@@ -47,7 +46,7 @@
                         <?php foreach ($menu as $m) : ?>
                             <tr>
                                 <td><?= $i++; ?></td>
-                                <!-- <td><a href="<?= base_url(); ?>Menu/index/<?= $m['name']; ?>" style="text-decoration: none; color:black;"><?= $m['name']; ?></a></td> -->
+                                <td><a href="<?= base_url(); ?>Menu/index/<?= $m['name']; ?>" style="text-decoration: none; color:black;"><?= $m['name']; ?></a></td> 
                                 <td><a href="<?= base_url('Menu/index/' . $m['name'] . '?kategori='); ?>" style="text-decoration: none; color:black;"><?= $m['name']; ?></a></td>
                             </tr>
                         <?php endforeach; ?>
@@ -56,7 +55,54 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1><?= $title ?></h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item">Tables</li>
+                <li class="breadcrumb-item active">Data</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <table class="table" id="dataTable" width="100%">
+                            <thead>
+                                <tr>
+                                    <th width="5%">No</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1; ?>
+                                <?php foreach ($menu as $m) : ?>
+                                    <tr>
+                                        <td><?= $i++; ?></td>
+                                        <!-- <td><a href="<?= base_url(); ?>Menu/index/<?= $m['name']; ?>" style="text-decoration: none; color:black;"><?= $m['name']; ?></a></td> -->
+                                        <td><a href="<?= base_url('Menu/index/' . $m['name'] . '?kategori='); ?>" style="text-decoration: none; color:black;"><?= $m['name']; ?></a></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>

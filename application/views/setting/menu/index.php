@@ -1,6 +1,6 @@
 <div class="swal" data-swal="<?= $this->session->flashdata('notif'); ?>"></div>
 <div class="swal-error" data-swalerror="<?= $this->session->flashdata('error'); ?>"></div>
-<section class="content-header">
+<!-- <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -13,13 +13,12 @@
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
-</section>
+    </div>
+</section> -->
 
-<!-- Main content -->
-<section class="content">
+<!-- <section class="content">
 
-    <!-- Default box -->
+
     <div class="card">
         <div class="card-header">
             <h3 class="card-title"></h3>
@@ -71,127 +70,177 @@
                 </table>
             </div>
         </div>
+    </div>
+</section> -->
+<main id="main" class="main">
 
+    <div class="pagetitle">
+        <h1><?= $title ?></h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active"><?= $title ?></li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
 
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Menu</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <table class="table" id="dataTable" width="100%">
+                            <thead>
+                                <tr>
+                                    <th style="width: 5%;text-align: center;">NO</th>
+                                    <th style="width:60%;">Nama Sub Menu</th>
+                                    <th style="width: 10%;">Url</th>
+                                    <th style="width: 10%;">Status</th>
+                                    <th style="text-align: center;width: 10%;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1; ?>
+                                <?php foreach ($menu as $m) : ?>
+                                    <tr>
+                                        <td style="text-align: center;"><?= $i++; ?></td>
+                                        <td>
+                                            <a href="<?= base_url(); ?>submenu/index/<?= $m['id']; ?>" style="text-decoration: none; color: gray;"><?= $m['menu']; ?></a>
+                                        </td>
+                                        <td><?= $m['url']; ?></td>
+                                        <td><?= $m['name']; ?></td>
+                                        <td class="d-flex justify-content-center">
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a type="button" class="btn btn-secondary btn-edit" data-bs-toggle="modal" data-bs-target="#editMenuModal" data-kategori="<?= $m['kategori']; ?>" data-id="<?= $m['id']; ?>" data-menu="<?= $m['menu']; ?>" data-url="<?= $m['url']; ?>" data-active="<?= $m['Active']; ?>" data-icon="<?= $m['icon']; ?>"><i class="bi bi-pencil-square"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+
                     </div>
-                    <form action="<?= base_url('menu/save'); ?>" method="post">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="editMenuName" class="form-label fs-6">Menu Name</label>
-                                <input class="form-control <?= form_error('menu') ? 'is-invalid' : ''; ?>" name="menu" id="menu" type="text" placeholder="Enter name menu">
-                                <div class="invalid-feedback">
-                                    <?= form_error('menu'); ?>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="" class="form-label">Url</label>
-                                <input type="text" class="form-control" name="url" id="url" placeholder="Url...">
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="form-label">Kategori</label>
-                                <select name="kategori" class="form-select" id="Editkategori">
-                                    <option Selected>Select Kategori</option>
-                                    <?php foreach ($kategori as $k) : ?>
-                                        <option value="<?= $k['name']; ?>"><?= $k['name']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="form-label">Icon</label>
-                                <input type="text" class="form-control" name="icon" id="icon" placeholder="Icon...">
-                            </div>
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="is_active" id="toggleUrlInput">
-                                    <label class="form-check-label" for="toggleUrlInput">
-                                        Url??
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="Active" name="is_active" value="1">
-                                <label class="form-check-label" for="flexSwitchCheckChecked">Publis?</label>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
                 </div>
+
             </div>
         </div>
+    </section>
 
-        <!-- Modal untuk edit menu -->
-        <div class="modal fade" id="editMenuModal" tabindex="-1" aria-labelledby="editMenuModalLabel" aria-hidden="true" data-bs-backdrop="false">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editMenuModalLabel">Edit Menu</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+</main>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Menu</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<?= base_url('menu/save'); ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="editMenuName" class="form-label fs-6">Menu Name</label>
+                        <input class="form-control <?= form_error('menu') ? 'is-invalid' : ''; ?>" name="menu" id="menu" type="text" placeholder="Enter name menu">
+                        <div class="invalid-feedback">
+                            <?= form_error('menu'); ?>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <form action="<?= base_url('menu/editMenu'); ?>" method="POST">
-                            <div class="form-group">
-                                <!-- Periksa atribut name pada input hidden -->
-                                <input type="hidden" name="editId" id="editId" value="">
-                                <label for="editMenuName" class="form-label">Menu Name</label>
-                                <!-- Periksa atribut name pada input teks -->
-                                <input type="text" class="form-control" id="editMenuName" name="editMenuName">
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="form-label">Url</label>
-                                <input type="text" class="form-control" name="url" id="Editurl" placeholder="Url...">
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="form-label">Kategori</label>
-                                <select name="kategori" class="form-select" id="Editkategori">
-                                    <option value=""></option>
-                                    <?php foreach ($kategori as $k) : ?>
-                                        <option value="<?= $k['name']; ?>"><?= $k['name']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="form-label">Icon</label>
-                                <input type="text" class="form-control" name="icon" id="EditIcon" placeholder="Icon...">
-                            </div>
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="is_active" id="toggleUrlInpute">
-                                    <label class="form-check-label" for="toggleUrlInput">
-                                        Url??
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="EditActive" name="is_active" value="Publish">
-                                <label class="form-check-label" for="flexSwitchCheckChecked">Publis?</label>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
+
+                    <div class="form-group">
+                        <label for="" class="form-label">Url</label>
+                        <input type="text" class="form-control" name="url" id="url" placeholder="Url...">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-label">Kategori</label>
+                        <select name="kategori" class="form-select" id="Editkategori">
+                            <option Selected>Select Kategori</option>
+                            <?php foreach ($kategori as $k) : ?>
+                                <option value="<?= $k['name']; ?>"><?= $k['name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-label">Icon</label>
+                        <input type="text" class="form-control" name="icon" id="icon" placeholder="Icon...">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="is_active" id="toggleUrlInput">
+                            <label class="form-check-label" for="toggleUrlInput">
+                                Url??
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="Active" name="is_active" value="1">
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Publis?</label>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal untuk edit menu -->
+<div class="modal fade" id="editMenuModal" tabindex="-1" aria-labelledby="editMenuModalLabel" aria-hidden="true" data-bs-backdrop="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editMenuModalLabel">Edit Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('menu/editMenu'); ?>" method="POST">
+                    <div class="form-group">
+                        <!-- Periksa atribut name pada input hidden -->
+                        <input type="hidden" name="editId" id="editId" value="">
+                        <label for="editMenuName" class="form-label">Menu Name</label>
+                        <!-- Periksa atribut name pada input teks -->
+                        <input type="text" class="form-control" id="editMenuName" name="editMenuName">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-label">Url</label>
+                        <input type="text" class="form-control" name="url" id="Editurl" placeholder="Url...">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-label">Kategori</label>
+                        <select name="kategori" class="form-select" id="Editkategori">
+                            <option value=""></option>
+                            <?php foreach ($kategori as $k) : ?>
+                                <option value="<?= $k['name']; ?>"><?= $k['name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-label">Icon</label>
+                        <input type="text" class="form-control" name="icon" id="EditIcon" placeholder="Icon...">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="is_active" id="toggleUrlInpute">
+                            <label class="form-check-label" for="toggleUrlInput">
+                                Url??
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="EditActive" name="is_active" value="Publish">
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Publis?</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <!-- /.card-body -->
-
-    <!-- /.card-footer-->
-
-    <!-- /.card -->
-
-
-</section>
+</div>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>

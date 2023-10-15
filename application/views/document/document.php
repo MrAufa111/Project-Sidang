@@ -4,7 +4,7 @@
         <div class="card ml-2 mr-2 mt-5 shadow">
             <div class="card-body">
                 <div class="table table-responsive">
-                    <a href="<?= base_url('crud/tamdoc')?>" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Add Data Document</a>
+                    <a href="<?= base_url('crud/tamdoc') ?>" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Add Data Document</a>
                     <a href="<?= base_url('server/save'); ?>" class="btn btn-info mb-3"><i class="fas fa-save"></i> SaveDc</a>
                     <table id="dataTable" class="table">
                         <thead>
@@ -38,6 +38,7 @@
                                         <?php $i++; ?>
                                     <?php endforeach;
                                     ?>
+                                </tr>
                         </tbody>
                     </table>
                 </div>
