@@ -11,6 +11,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>AdminLTE 3 | Top Navigation</title>
 
     <!-- Google Font: Source Sans Pro -->
+    <link rel="icon" href="<?= base_url() ?>assets/img/Asset 14.png">
+    <link href="<?= base_url() ?>assets/img/Asset 14.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/plugins/fontawesome-free/css/all.min.css">

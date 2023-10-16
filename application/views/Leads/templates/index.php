@@ -7,6 +7,8 @@
     <title><?= $title; ?></title>
 
     <!-- Google Font: Source Sans Pro -->
+    <link rel="icon" href="<?= base_url() ?>assets/img/Asset 14.png">
+    <link href="<?= base_url() ?>assets/img/Asset 14.png" rel="apple-touch-icon">
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
     <!-- Font Awesome -->
     <!-- <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/plugins/fontawesome-free/css/all.min.css"> -->
@@ -81,8 +83,8 @@
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <!-- <script src="<?= base_url(); ?>assets/vendor/jquery/jquery-3.6.0.min.js"></script>
-    <script src="<?= base_url(); ?>assets/vendor/plugins/jquery/jquery.min.js"></script>
+    <script src="<?= base_url(); ?>assets/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <!--<script src="<?= base_url(); ?>assets/vendor/plugins/jquery/jquery.min.js"></script>
     <script src="<?= base_url(); ?>assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?= base_url(); ?>assets/vendor/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="<?= base_url(); ?>assets/vendor/plugins/select2/js/select2.full.min.js"></script>

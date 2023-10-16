@@ -12,14 +12,14 @@ class Leads extends CI_Controller
     public function index()
     {
         $data['title'] = '';
-        $data['abc'] = 'Leads/dashboard';
+        $data['page'] = 'Leads/dashboard';
         $this->load->view('Leads/templates/index', $data);
     }
 
     public function data()
     {
         $data['title'] = 'Data Leads';
-        $data['abc'] = 'Leads/index';
+        $data['page'] = 'Leads/index';
         // $data['client'] = $this->M_leads->getclient();
         $data['tables'] = $this->M_leads->tables();
         $this->load->view('Leads/templates/index', $data);
@@ -29,7 +29,7 @@ class Leads extends CI_Controller
     public function addl()
     {
         $data['title'] = 'Add | Data Leads';
-        $data['abc'] = 'Leads/addData';
+        $data['page'] = 'Leads/addData';
         $data['jenis'] = $this->M_leads->getjenispt();
         $data['status'] = $this->M_leads->getstatus();
         $data['instal'] = $this->M_leads->getinstalasi();
@@ -137,7 +137,7 @@ class Leads extends CI_Controller
             redirect('leads/data');
         } else {
             $data['data_client'] = $data_client;
-            $data['abc'] = 'Leads/editData';
+            $data['page'] = 'Leads/editData';
             $data['jenis'] = $this->M_leads->getjenispt();
             $data['status'] = $this->M_leads->getstatus();
             $data['instal'] = $this->M_leads->getinstalasi();

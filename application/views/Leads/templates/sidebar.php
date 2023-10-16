@@ -27,6 +27,7 @@
                     $this->db->where('menu_id', $menuId);
                     $this->db->where('is_active', 1);
                     $subMenu = $this->db->get()->result_array();
+
                     foreach ($subMenu as $sm) : ?>
                         <ul id="_<?= $sm['menu_id']; ?>" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                             <li>

@@ -38,7 +38,7 @@ $user = $this->db->get()->row_array();
 
     <div class="d-flex align-items-center justify-content-between">
         <a href="<?= base_url('Dashboard') ?>" class="logo d-flex align-items-center">
-            <img src="assets/img/logo.png" alt="">
+            <img src="<?= base_url() ?>assets/img/Asset 14.png" alt="">
             <span class="d-none d-lg-block">SIMPEL</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>

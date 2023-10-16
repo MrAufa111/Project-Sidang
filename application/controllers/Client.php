@@ -9,6 +9,7 @@ class Client extends CI_Controller
     public function index()
     {
         $data['page'] = 'client/index';
+        $data['title'] = 'Client';
         $this->load->view('client/templates/index', $data);
     }
 }

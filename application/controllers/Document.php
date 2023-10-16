@@ -6,14 +6,14 @@ class Document extends CI_Controller
     public function index()
     {
         $data['title'] = '';
-        $data['abc'] = 'document/index';
+        $data['page'] = 'document/index';
         $this->load->view('document/templates/index', $data);
     }
 
     public function document()
     {
         $data['title'] = '';
-        $data['abc'] = 'document/document';
+        $data['page'] = 'document/document';
         $data['Document'] = $this->Doc_model->getDoc();
         $data['jenis'] = $this->Doc_model->getJDoc();
         $data['file'] = $this->Doc_model->getJFile();
@@ -22,7 +22,7 @@ class Document extends CI_Controller
     public function print()
     {
         $data['title'] = '';
-        $data['abc'] = 'document/print';
+        $data['page'] = 'document/print';
         $this->load->view('document/templates/index', $data);
     }
 }

@@ -11,7 +11,7 @@ class Setup_document extends CI_Controller
     public function tamdoc()
     {
         $data['title'] = '';
-        $data['abc'] = 'user/tamdata';
+        $data['page'] = 'user/tamdata';
         $this->load->view('user/templates/index', $data);
     }
     public function editdoc($id)
