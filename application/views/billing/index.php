@@ -73,7 +73,7 @@
                                         <i class="bi bi-box-arrow-in-down"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>Rp.650.000.000</h6>
+                                        <h6 id="pemasukan"></h6>
 
                                     </div>
                                 </div>
@@ -145,7 +145,7 @@
                                         <i class="bi bi-people"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>1244</h6>
+                                        <h6><?= $cus ?></h6>
 
                                     </div>
                                 </div>
@@ -279,15 +279,59 @@
 
                     rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
 
-                    return 'Rp ' + rupiah;
+                    return 'Rp. ' + rupiah;
                 }
 
 
 
                 var totalTagihanNumerik = parseFloat(response[0].total_tagihan);
-                var totalTagihanRupiah = formatRupiah(totalTagihanNumerik);
-                $('#keuntungan').text(totalTagihanRupiah);
-                console.log(response);
+                if (!isNaN(totalTagihanNumerik)) {
+                    var totalTagihanRupiah = formatRupiah(totalTagihanNumerik);
+                    $('#pemasukan').text(totalTagihanRupiah);
+                } else {
+                    // Jika nilai total_tagihan adalah null atau tidak terdefinisi, tampilkan 0
+                    $('#pemasukan').text('Rp. 0');
+                }
+            },
+            error: function(error) { // Perbaiki ini, tambahkan parameter error
+                console.log('error: ' + error);
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $.ajax({
+            url: '<?= base_url('billing/keuntungan') ?>',
+            type: 'get',
+            dataType: 'json', // Tambahkan ini untuk memastikan data yang diterima adalah JSON
+            success: function(response) {
+                function formatRupiah(angka) {
+                    var number_string = angka.toString();
+                    var split = number_string.split(',');
+                    var sisa = split[0].length % 3;
+                    var rupiah = split[0].substr(0, sisa);
+                    var ribuan = split[0].substr(sisa).match(/\d{3}/g);
+
+                    if (ribuan) {
+                        separator = sisa ? '.' : '';
+                        rupiah += separator + ribuan.join('.');
+                    }
+
+                    rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+
+                    return 'Rp. ' + rupiah;
+                }
+
+
+
+                var totalTagihanNumerik = parseFloat(response[0].total_tagihan);
+                if (!isNaN(totalTagihanNumerik)) {
+                    var totalTagihanRupiah = formatRupiah(totalTagihanNumerik);
+                    $('#keuntungan').text(totalTagihanRupiah);
+                } else {
+                    // Jika nilai total_tagihan adalah null atau tidak terdefinisi, tampilkan 0
+                    $('#keuntungan').text('Rp. 0');
+                }
             },
             error: function(error) { // Perbaiki ini, tambahkan parameter error
                 console.log('error: ' + error);

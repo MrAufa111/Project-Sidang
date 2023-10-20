@@ -77,4 +77,49 @@ class M_billing extends CI_model
         $query = $this->db->get()->result_array();
         return $query;
     }
+    public function countpengeluaran()
+    {
+        $bulanSaatIni = date('m');
+        $tahunSaatIni = date('Y');
+
+        $this->db->select('SUM(REPLACE(harga, ".", "")) AS harga');
+        $this->db->from('pengeluaran');
+        $this->db->where('YEAR(tanggal)', $tahunSaatIni);
+        $this->db->where('MONTH(tanggal)', $bulanSaatIni);
+        $query = $this->db->get()->result_array();
+
+        return $query;
+    }
+    public function tambah_data_billing($data1)
+    {
+
+        $this->db->insert('billing', $data1);
+
+        if ($this->db->affected_rows() > 0) {
+            return $this->db->insert_id();
+        } else {
+            return false;
+        }
+    }
+    public function tambah_data_currency($data2)
+    {
+        var_dump($data2);
+        exit;
+        $this->db->insert('currency', $data2);
+
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function countcus()
+    {
+        $this->db->select('COUNT(*) as total_count');
+        $this->db->from('client');
+        $this->db->where('status_member', '1');
+        $query = $this->db->get();
+        $result = $query->row();
+        return $totalCount = $result->total_count;
+    }
 }

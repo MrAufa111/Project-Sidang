@@ -14,6 +14,9 @@ class Billing extends CI_Controller
         $data['get'] = $this->model->countuntung();
         // var_dump($data['get']);
         // exit;
+        $data['pen'] = $this->model->countpengeluaran();
+
+        $data['cus'] = $this->model->countcus();
         $data['billing'] = $this->model->getBilling();
         $this->load->view('billing/templates/index', $data);
     }

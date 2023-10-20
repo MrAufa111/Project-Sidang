@@ -123,7 +123,7 @@
                                                 <td><?= $b['harga']; ?></td>
                                                 <td>
                                                     <div class="">
-                                                        <a style="color: red;pointer-events: auto;" class="btn-deletebarang d-flex align-items-center justify-content-center"><i class="fas fa-trash"></i></a>
+                                                        <a style="color: red;pointer-events: auto;" class="btn-deletebarang d-flex align-items-center justify-content-center"><i class="bi bi-trash"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>
