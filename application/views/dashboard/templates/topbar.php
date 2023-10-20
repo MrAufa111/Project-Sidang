@@ -2,7 +2,7 @@
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
     <div class="navbar">
         <a href="#" class="navbar-brand  ml-4">
-            <img src="<?= base_url(); ?>assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <img src="<?= base_url(); ?>assets/img/Asset 14.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         </a>
 
     </div>

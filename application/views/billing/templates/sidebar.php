@@ -13,29 +13,33 @@
         ?>
             <?php if ($m['Active'] == 1 && $m['kategori'] == 'Billing') : ?>
                 <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#_<?= $m['id'] ?>" data-bs-toggle="collapse" href="#">
+                    <?php if (!empty($m['url'])) : ?>
+                        <a href="<?= base_url($m['url']) ?>" class="nav-link collapsed" data-bs-target="#_<?= $m['id'] ?>">
+                        <?php else : ?>
+                            <a href="#" class="nav-link collapsed" data-bs-target="#_<?= $m['id'] ?>" data-bs-toggle="collapse">
+                            <?php endif ?>
 
-                        <i class="<?= $m['icon'] ?>"></i><span><?= $m['menu']; ?></span>
-                        <?php if (empty($m['url'])) : ?>
-                            <i class="bi bi-chevron-down ms-auto"></i>
-                        <?php endif; ?>
-                    </a>
-                    <?php
-                    $menuId = $m['id'];
-                    $this->db->select('user_sub_menu.* ');
-                    $this->db->from('user_sub_menu');
-                    $this->db->where('menu_id', $menuId);
-                    $this->db->where('is_active', 1);
-                    $subMenu = $this->db->get()->result_array();
-                    foreach ($subMenu as $sm) : ?>
-                        <ul id="_<?= $sm['menu_id']; ?>" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                            <li>
-                                <a href="<?= base_url($sm['url']); ?>">
-                                    <i class="bi bi-circle"></i><span><?= $sm['title']; ?></span>
-                                </a>
-                            </li>
-                        </ul>
-                    <?php endforeach; ?>
+                            <i class="<?= $m['icon'] ?>"></i><span><?= $m['menu']; ?></span>
+                            <?php if (empty($m['url'])) : ?>
+                                <i class="bi bi-chevron-down ms-auto"></i>
+                            <?php endif; ?>
+                            </a>
+                            <?php
+                            $menuId = $m['id'];
+                            $this->db->select('user_sub_menu.* ');
+                            $this->db->from('user_sub_menu');
+                            $this->db->where('menu_id', $menuId);
+                            $this->db->where('is_active', 1);
+                            $subMenu = $this->db->get()->result_array();
+                            foreach ($subMenu as $sm) : ?>
+                                <ul id="_<?= $sm['menu_id']; ?>" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                    <li>
+                                        <a href="<?= base_url($sm['url']); ?>">
+                                            <i class="bi bi-circle"></i><span><?= $sm['title']; ?></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            <?php endforeach; ?>
                 </li>
             <?php endif; ?>
         <?php endforeach; ?>

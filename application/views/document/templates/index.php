@@ -83,8 +83,7 @@
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <!-- <script src="<?= base_url(); ?>assets/vendor/jquery/jquery-3.6.0.min.js"></script>
-    <script src="<?= base_url(); ?>assets/vendor/plugins/jquery/jquery.min.js"></script>
+    <!-- <script src="<?= base_url(); ?>assets/vendor/plugins/jquery/jquery.min.js"></script>
     <script src="<?= base_url(); ?>assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?= base_url(); ?>assets/vendor/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="<?= base_url(); ?>assets/vendor/plugins/select2/js/select2.full.min.js"></script>
@@ -97,6 +96,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="<?= base_url(); ?>assets/vendor/plugins/summernote/summernote-bs4.min.js"></script>
     <script src="<?= base_url(); ?>assets/js/myscript.js"></script> -->
+    <script src="<?= base_url(); ?>assets/js/myscript.js"></script>
+    <script src="<?= base_url(); ?>assets/vendor/jquery/jquery-3.6.0.min.js"></script>
     <script src="<?= base_url(); ?>assets/vendor/apexcharts/apexcharts.min.js"></script>
     <script src="<?= base_url(); ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="<?= base_url(); ?>assets/vendor/chart.js/chart.umd.js"></script>

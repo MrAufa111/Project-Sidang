@@ -109,8 +109,8 @@
                                         <td>
                                             <!-- <a href="" class="btn btn-secondary"><i class="fas fa-pen"></i></a>|<a href="" class="btn btn-danger btn-hapus"><i class="fas fa-trash-alt"></i></a> -->
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a type="button" class="btn btn-secondary btn-leveledit" data-id="<?= $l['id']; ?>" data-role="<?= $l['role']; ?>"><i class="fas fa-pen"></i></a>
-                                                <a class="btn btn-danger btn-hapus" href="<?= base_url('level/deleterole/'); ?><?= $l['id']; ?>"><i class="fas fa-trash-alt"></i></a>
+                                                <a type="button" class="btn btn-secondary btn-leveledit" data-id="<?= $l['id']; ?>" data-role="<?= $l['role']; ?>"><i class="bi bi-pencil-square"></i></a>
+                                                <a class="btn btn-danger btn-hapus" href="<?= base_url('level/deleterole/'); ?><?= $l['id']; ?>"><i class="bi bi-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>

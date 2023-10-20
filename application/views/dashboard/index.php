@@ -22,7 +22,7 @@
                                 <div class="text-center mt-2">
                                     <p style="font-weight: bold;" class="h4">Diagram Client</p>
                                 </div>
-                                <canvas id="pie"></canvas>
+                                <canvas id="pieapa"></canvas>
                             </div>
                             <div class="col-6">
                                 <div class="text-center mt-2">
@@ -90,52 +90,15 @@
 <!-- /.content -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+
 <script>
     const cfg = document.getElementById('chart');
     const cgf = document.getElementById('chart2');
-    const ctx = document.getElementById('pie');
+    const ctx = document.getElementById('pieapa');
     const cxt = document.getElementById('pie1');
 
     new Chart(cfg, {
-        type: 'line',
-        data: {
-            labels: [
-                'Nanggroe ',
-                'Sumatera ',
-                'Sumatera ',
-                'Sumatera ',
-                'Bengkulu ',
-                'Riau ',
-                'Kepulauan ',
-                'Jambi ',
-                'Lampung ',
-                'Bangka ',
-                'Kalimantan ',
-                'Banten ',
-                'Kalimantan ',
-                'Banten ',
-            ],
-            datasets: [{
-                label: 'My First Dataset',
-                data: [300, 50, 100, 20, 50, 40, 30, 500, 30],
-                backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
-                ],
-                hoverOffset: 4
-            }],
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-
-    });
-    new Chart(cgf, {
         type: 'line',
         data: {
             labels: [
@@ -179,7 +142,7 @@
         data: {
 
             datasets: [{
-                label: 'My First Dataset',
+                label: 'My First Datasett',
                 data: [300, 50, 100, 20, 50, 40, 30, 500, 30],
                 backgroundColor: [
                     'rgb(255, 99, 132)',

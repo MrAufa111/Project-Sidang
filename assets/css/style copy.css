@@ -830,9 +830,13 @@ h6 {
   background: #e0f8e9;
 }
 
+.dashboard .outsi-card .card-icon {
+  color: #c91313;
+  background: #f8baba;
+}
 .dashboard .customers-card .card-icon {
-  color: #000000;
-  background: #dfdfdf;
+  color: #f5f259;
+  background: #fcf8eb;
 }
 
 /* Activity */

@@ -53,4 +53,28 @@ class M_billing extends CI_model
         $this->db->where('id', $id);
         $this->db->delete('barang');
     }
+    public function countuntung()
+    {
+        $bulanSaatIni = date('m'); // Mendapatkan bulan saat ini
+        $tahunSaatIni = date('Y'); // Mendapatkan tahun saat ini
+
+        $this->db->select('SUM(REPLACE(total_tagihan, ".", "")) AS total_tagihan');
+        $this->db->from('currency');
+        $this->db->where('YEAR(created_at)', $tahunSaatIni);
+        $this->db->where('MONTH(created_at)', $bulanSaatIni);
+        $query = $this->db->get()->result_array();
+        return $query;
+    }
+    public function countpemasukan()
+    {
+        $bulanSaatIni = date('m'); // Mendapatkan bulan saat ini
+        $tahunSaatIni = date('Y'); // Mendapatkan tahun saat ini
+
+        $this->db->select('SUM(REPLACE(total_tagihan, ".", "")) AS total_tagihan');
+        $this->db->from('currency');
+        $this->db->where('YEAR(created_at)', $tahunSaatIni);
+        $this->db->where('MONTH(created_at)', $bulanSaatIni);
+        $query = $this->db->get()->result_array();
+        return $query;
+    }
 }
