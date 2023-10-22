@@ -33,6 +33,46 @@ $(document).on("click", ".btn-hapus", function (e) {
 		}
 	});
 });
+$(document).on("click", ".btn-email", function (e) {
+	console.log('coba');
+	e.preventDefault();
+	const href = $(this).attr("href");
+
+	Swal.fire({
+		title: 'Apakah Kamu akan Mengirim invoice?',
+		text: "Pastikan semua nya sudah benar",
+		icon: 'question',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya, Kirim!'
+	}).then((result) => {
+		if (result.isConfirmed) {
+			document.location.href = href;
+		}
+	});
+});
+
+// $(document).on("click", ".btn-email", function (e) {
+// 	e.preventDefault();
+// 	const href = $(this).attr("href");
+
+// 	Swal.fire({
+// 		title: 'Apakah Kamu akan Mengirim invoice?',
+// 		text: "Pastikan semua nya sudah benar",
+// 		icon: 'question',
+// 		showCancelButton: true,
+// 		confirmButtonColor: '#3085d6',
+// 		cancelButtonColor: '#d33',
+// 		confirmButtonText: 'Ya, Kirim!'
+// 	  }).then((result) => {
+// 		if (result.isConfirmed) {
+// 			document.location.href = href;
+// 		}
+// 	  })
+// 	})
+
+
 
 //Count Button
 const counts = document.querySelector(".btn-count");

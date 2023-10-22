@@ -81,9 +81,9 @@
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <!-- 
+   
     <script src="<?= base_url(); ?>assets/vendor/plugins/jquery/jquery.min.js"></script>
-    <script src="<?= base_url(); ?>assets/js/bootstrap.bundle.min.js"></script>
+     <!-- <script src="<?= base_url(); ?>assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?= base_url(); ?>assets/vendor/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="<?= base_url(); ?>assets/vendor/plugins/select2/js/select2.full.min.js"></script>
     <script src="<?= base_url(); ?>assets/vendor/plugins/daterangepicker/daterangepicker.js"></script>

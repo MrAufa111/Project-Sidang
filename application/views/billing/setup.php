@@ -61,6 +61,7 @@
                                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                                     <a href="<?= base_url('Setup_billing/edit/' . $b['id']); ?>" class="btn btn-secondary"><i class="bi bi-pencil-square"></i></a>
                                                     <a href="<?= base_url('Setup_billing/delete/' . $b['id']); ?>" class="btn btn-danger btn-hapus"><i class="bi bi-trash"></i></a>
+                                                    <a href="#" class="btn btn-primary btn-email"><i class="ri-mail-check-fill "></i></a>
                                                 </div>
                                             </td>
                                         </tr>

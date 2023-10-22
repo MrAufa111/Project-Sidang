@@ -19,7 +19,6 @@ class Setup_billing extends CI_Controller
     }
     public function tambah()
     {
-
         $data['title'] = 'Buat Invoice';
         $data['page'] = 'billing/tambah';
         $data['client'] = $this->db->get('client')->result_array();
@@ -30,65 +29,67 @@ class Setup_billing extends CI_Controller
     }
     public function insertData()
     {
+        // if (error_reporting(0)) {
+        //     redirect('Setup_billing/tambah');
+        // }
         $input = $this->input->post(NULL, TRUE);
+        if ($this->input->post()) {
 
-
-        $data1 = array(
-            $is_active = $input['sinvoice'],
-            $status = ($is_active == 1) ? 1 : 0,
-            'client_id' => $input['namakampus'],
-            'status_aktif' => $input['statusaktif'],
-            'status_penagihan' => $input['statuspen'],
-            'tanggal_awal' => $input['tanggalawal'],
-            'tanggal_akhir' => $input['tanggalakhir'],
-            'periode_penagihan' => $input['periode'],
-            'status_invoice' => $status
-        );
-
-        $id = $this->Model->tambah_data_billing($data1);
-
-        if ($id) {
-            $data2 = array(
-                'id_bill' => $id,
-                'nominal_tagihan' => $input['nominaltagihan'],
-                'potongan' => $input['potongan'],
-                'total_tagihan' => $input['totaltagihan'],
-                'created_at' => time(),
+            // $invoice = $input['invoice'];
+            // $status = ($invoice == 1) ? 1 : 0;
+            $data1 = array(
+                'client_id' => $input['namakampus'],
+                'status_aktif' => $input['statusaktif'],
+                'status_penagihan' => $input['statuspen'],
+                'tanngal_awal' => $input['tanggalawal'],
+                'tanggal_akhir' => $input['tanggalakhir'],
+                'periode_penagihan' => $input['periode'],
+                'status_invoice' => 0
             );
 
-            $cur = $this->Model->tambah_data_currency($data2);
+            $id = $this->Model->tambah_data_billing($data1);
 
-            if ($cur) {
-                $this->session->set_flashdata('notif', 'Data has been saved successfully.');
-                $input_data = $this->input->post('data');
+            if ($id) {
+                $data2 = array(
+                    'id_bill' => $id,
+                    'nominal_tagihan' => $input['nominaltagihan'],
+                    'potongan' => $input['potongan'],
+                    'total_tagihan' => $input['totaltagihan'],
+                );
 
-                if ($input_data) {
-                    $data = json_decode($input_data, true);
+                $cur = $this->Model->tambah_data_currency($data2);
 
-                    if ($data !== null) {
-                        foreach ($data as $item) {
-                            $insert_data = array(
-                                'id_bill' => $id,
-                                'name_barang' => $item['name_barang'],
-                                'harga' => $item['harga']
-                            );
+                if ($cur) {
 
-                            $this->db->insert('barang', $insert_data);
+                    $input_data = $this->input->post('data');
+
+                    if ($input_data) {
+                        $data = json_decode($input_data, true);
+
+                        if ($data !== null) {
+                            foreach ($data as $item) {
+                                $insert_data = array(
+                                    'id_bill' => $id,
+                                    'name_barang' => $item['name_barang'],
+                                    'harga' => $item['harga']
+                                );
+                                $this->db->insert('barang', $insert_data);
+                                $this->session->set_flashdata('notif', 'Invoice Berhasil Di Buat!!');
+                                redirect('Setup_billing');
+                            }
+                        } else {
+                            $this->session->set_flashdata('error', 'Invalid JSON data.');
+                            redirect('Setup_billing/tambah');
                         }
-                        $this->session->set_flashdata('notif', 'Data has been saved successfully.');
-                        redirect('Setup_billing');
-                    } else {
-                        $this->session->set_flashdata('error', 'Invalid JSON data.');
-                        redirect('Setup_billing');
                     }
+                } else {
+                    $this->session->set_flashdata('error', 'Failed to save data to currency table.');
+                    redirect('Setup_billing/tambah');
                 }
             } else {
-                $this->session->set_flashdata('error', 'Failed to save data to currency table.');
-                redirect('Setup_billing');
+                $this->session->set_flashdata('error', 'Failed to save data to billing table.');
+                redirect('Setup_billing/tambah');
             }
-        } else {
-            $this->session->set_flashdata('error', 'Failed to save data to billing table.');
-            redirect('Setup_billing');
         }
     }
 
@@ -150,5 +151,16 @@ class Setup_billing extends CI_Controller
         $data['name_barang'] = $this->input->post('barang');
         $data['harga'] = $this->input->post('harga');
         $this->db->insert('barang', $data);
+    }
+    public function getclient()
+    {
+        $data1 = $this->input->post('selectedValue');
+        $email = $this->Model->getEmail($data1);
+        echo json_encode(array("email" => $email));
+    }
+    public function kirimemail()
+    {
+        echo "<script>alert('okk')</script>";
+        redirect('Setup_billing');
     }
 }

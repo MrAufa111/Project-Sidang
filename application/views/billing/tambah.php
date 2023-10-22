@@ -1,5 +1,6 @@
 <div class="swal" data-swal="<?= $this->session->flashdata('notif'); ?>"></div>
 <div class="swal-error" data-swalerror="<?= $this->session->flashdata('error'); ?>"></div>
+<div class="swallow" data-swallow="<?= $this->session->flashdata('swallow'); ?>"></div>
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -37,7 +38,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Setup Billing</h5>
 
-                        <form action="<?= base_url(); ?>Setup_billing/insertData" method="POST">
+                        <form>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -99,7 +100,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="" class="form-label">Status Aktif</label>
+                                        <label for="" class="form-label">Status Penagihan</label>
                                         <select name="statuspen" id="statuspen" class="form-select">
                                             <option selected>Select Status</option>
                                             <?php foreach ($statusp as $s) : ?>
@@ -132,9 +133,13 @@
                                 </table>
                             </div>
                             <div class="justify-content-end d-flex mt-3">
-                                <div class="me-1">
-                                    <input type="checkbox" value="1" name="sinvoice" data-toggle="switchbutton" id="switchd" data-color="success" data-off-color="default" data-onlabel="PAID" data-offlabel="UNPAID" data-size="normal">
-                                </div>
+                                <!-- <div class="me-1">
+                                    <div class="form-switch mt-2 me-3">
+                                        <label class="form-check-label me-5" for="flexSwitchCheckDefault">UnPaid</label>
+                                        <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault" name="invoice" value="1">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">Paid</label>
+                                    </div>
+                                </div> -->
                                 <button class="btn btn-primary" id="simpanData" type="submit">Submit</button>
                             </div>
                         </form>
@@ -160,22 +165,67 @@
             row.harga = $(this).find('.harga').text();
             data.push(row);
         });
-
-        // Kirim data ke server menggunakan AJAX
+        let kampusname = $('#namakampus').val();
+        let tanggalawal = $('#tanggalawal').val();
+        let nominaltagihan = $('#nominaltagihan').val();
+        let potongan = $('#potongan').val();
+        let totaltagihan = $('#totaltagihan').val();
+        let emailkampus = $('#emailkampus').val();
+        let tanggalakhir = $('#tanggalakhir').val();
+        let periode = $('#periode').val();
+        let statusaktif = $('#statusaktif').val();
+        let statuspen = $('#statuspen').val();
+        let harga = $('#harga').val();
         $.ajax({
-            url: '<?= base_url('Setup_billing/insertData') ?>', // Ganti URL_Controller dengan URL controller Anda
+            url: '<?= base_url('Setup_billing/insertData') ?>',
             method: 'POST',
             data: {
+                namakampus: kampusname,
+                tanggalawal: tanggalawal,
+                nominaltagihan: nominaltagihan,
+                potongan: potongan,
+                totaltagihan: totaltagihan,
+                emailkampus: emailkampus,
+                tanggalakhir: tanggalakhir,
+                periode: periode,
+                statusaktif: statusaktif,
+                statuspen: statuspen,
                 data: JSON.stringify(data)
-            }, // Mengirim data dalam format JSON
+            },
             success: function(response) {
-                console.log('Data berhasil disimpan ke database!');
+
+                console.log(response);
             },
             error: function(error) {
                 console.log('Gagal menyimpan data ke database.');
             }
         });
     });
+    $('#namakampus').on('change', function() {
+        var selectedValue = $(this).val(); // Mendapatkan nilai terpilih dari elemen select
+        // console.log(selectedValue);
+        $.ajax({
+            url: '<?= base_url('Setup_billing/getclient') ?>',
+            method: 'POST',
+            data: {
+                selectedValue: selectedValue
+            },
+            success: function(data) {
+                var responseObj = JSON.parse(data);
+
+                var email = responseObj.email;
+
+                $('#emailkampus').val(email);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+
+    });
+
+
+
 
     $('#button').click(function() {
         let rows = $('#tabletambah tr');

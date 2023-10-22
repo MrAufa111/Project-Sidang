@@ -32,7 +32,6 @@ class M_level extends CI_model
             $action  => $value
         );
 
-
         $this->db->where('role_id', $role_id);
         $this->db->where('menu_id', $menu_id);
         $this->db->update('user_access_menu', $data);

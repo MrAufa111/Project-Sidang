@@ -92,9 +92,9 @@ class M_billing extends CI_model
     }
     public function tambah_data_billing($data1)
     {
-
+        // var_dump($data1);
+        // exit;
         $this->db->insert('billing', $data1);
-
         if ($this->db->affected_rows() > 0) {
             return $this->db->insert_id();
         } else {
@@ -103,10 +103,7 @@ class M_billing extends CI_model
     }
     public function tambah_data_currency($data2)
     {
-        var_dump($data2);
-        exit;
         $this->db->insert('currency', $data2);
-
         if ($this->db->affected_rows() > 0) {
             return true;
         } else {
@@ -121,5 +118,14 @@ class M_billing extends CI_model
         $query = $this->db->get();
         $result = $query->row();
         return $totalCount = $result->total_count;
+    }
+    public function getEmail($data1)
+    {
+        $result = $this->db
+            ->select('email')
+            ->get_where('wali', ['client_id' => $data1])
+            ->row_array();
+
+        return $result['email'];
     }
 }

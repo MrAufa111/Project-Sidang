@@ -15,8 +15,6 @@
     <!-- Theme style -->
     <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="<?= base_url(); ?>assets/css/adminlte.min.css">
-    <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/sweetalert2/sweetalert2.min.css">
-    <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/plugins/summernote/summernote-bs4.min.css">
     <link rel="stylesheet" href="<?= base_url(); ?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.4.0/css/bootstrap-colorpicker.css" integrity="sha512-HcfKB3Y0Dvf+k1XOwAD6d0LXRFpCnwsapllBQIvvLtO2KMTa0nI5MtuTv3DuawpsiA0ztTeu690DnMux/SuXJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/plugins/fullcalendar/main.css"> -->
@@ -27,8 +25,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css" integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> -->
-
+    
     <!-- Vendor CSS Files -->
+    <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/plugins/summernote/summernote-bs4.min.css">
     <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/plugins/select2/css/select2.min.css">
     <link href="<?= base_url(); ?>assets/css/bootstrap-switch-button.min.css" rel="stylesheet">
     <link href="<?= base_url(); ?>assets/css/bootstrap-switch.min.css" rel="stylesheet">

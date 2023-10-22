@@ -22,7 +22,7 @@
                                 <div class="text-center mt-2">
                                     <p style="font-weight: bold;" class="h4">Diagram Client</p>
                                 </div>
-                                <canvas id="pieapa"></canvas>
+                                <canvas id="pieapa"></canvas    >
                             </div>
                             <div class="col-6">
                                 <div class="text-center mt-2">
