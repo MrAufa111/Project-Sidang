@@ -1,4 +1,9 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 class Setup_billing extends CI_Controller
 {
@@ -6,6 +11,7 @@ class Setup_billing extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_billing', 'Model');
+        $this->load->library('PHPMailer_lib');
         check_login();
     }
     public function index()
@@ -160,7 +166,43 @@ class Setup_billing extends CI_Controller
     }
     public function kirimemail()
     {
-        echo "<script>alert('okk')</script>";
-        redirect('Setup_billing');
+        $email = $this->input->post('email');
+        $username = $this->input->post('username');
+
+        $mail = $this->PHPMailer_lib->load();
+        $mail->ClearAddresses();
+        $mail->ClearAttachments();
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'mraufa06@gmail.com';
+        $mail->Password = 'upaopftjiyeueyiq';
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
+
+        $mail->setFrom('mraufa06@gmail.com', 'Mail');
+        $mail->addReplyTo('mraufa06@gmail.com', 'Mail');
+        $mail->addAddress($email);
+
+
+        $email_data = [
+            // 'content' => $email_content,
+            'receiver_name' => $username, // Nama penerima sudah disertakan dalam data
+        ];
+        $email_template = $this->load->view('admin/member/email', $email_data, true);
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Aktifasi Email';
+        $mail->Body = 'coobaa';
+
+        var_dump($mail->send());
+        exit;
+        if ($mail->send()) {
+            $this->session->set_flashdata('notif', 'Member Berhasil Di Update dan Email Terkirim');
+        } else {
+            print_r($mail->ErrorInfo);
+            exit;
+            $this->session->set_flashdata('notif', 'Member Berhasil Di Update, tetapi Email Gagal Terkirim' . $mail->ErrorInfo);
+        }
     }
 }

@@ -61,7 +61,7 @@
                                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                                     <a href="<?= base_url('Setup_billing/edit/' . $b['id']); ?>" class="btn btn-secondary"><i class="bi bi-pencil-square"></i></a>
                                                     <a href="<?= base_url('Setup_billing/delete/' . $b['id']); ?>" class="btn btn-danger btn-hapus"><i class="bi bi-trash"></i></a>
-                                                    <a href="#" class="btn btn-primary btn-email"><i class="ri-mail-check-fill "></i></a>
+                                                    <a class="btn btn-primary btn-email" data-email="<?= $b['email'] ?>" data-username="<?= $b['name_client'] ?>"><i class="ri-mail-check-fill "></i></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -86,5 +86,39 @@
 <script>
     $(document).ready(function() {
         let table = $("#dataTable").DataTable();
+    });
+
+    $(document).on("click", ".btn-email", function(e) {
+        e.preventDefault();
+        const href = $(this).attr("href");
+
+        Swal.fire({
+            title: 'Apakah Kamu akan Mengirim invoice?',
+            text: "Pastikan semua nya sudah benar",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Kirim!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let email = $('.btn-email').data('email');
+                let username = $('.btn-email').data('username');
+                $.ajax({
+                    url: "<?= base_url('Setup_billing/kirimemail') ?>",
+                    type: 'POST',
+                    data: {
+                        username: username,
+                        email: email
+                    },
+                    success: (function() {
+                        console.log('success');
+                    }),
+                    error: (function(error) {
+                        console.log(error)
+                    })
+                })
+            }
+        });
     });
 </script>
