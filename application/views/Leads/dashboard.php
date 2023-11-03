@@ -12,7 +12,11 @@
                         <li class="breadcrumb-item active">Dashboard </li>
                     </ol>
                 </div><!-- /.col -->
-            </div><!-- /.row -->
+            </div>
+            <div align="center" class="mt-5 ">
+                <img src="<?= base_url(); ?>assets/img/client1.png" class="img-fluid" style="width:150px;">
+                <h1><b>SELAMAT DATANG DI MENU CLIENT</b></h1>
+            </div>
         </div><!-- /.container-fluid -->
     </div>
 </div>

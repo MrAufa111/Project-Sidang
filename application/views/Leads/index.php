@@ -14,6 +14,7 @@
                                         <th>Nama Kampus</th>
                                         <th>Kabupaten/Kota</th>
                                         <th>Provinsi</th>
+                                        <th>Alamat</th>
                                         <th>Jenis pT</th>
                                         <th>PIC</th>
                                         <th>Whatsapp</th>
@@ -37,6 +38,7 @@
                                             <td><?= $t['name']; ?></td>
                                             <td><?= $t['kota']; ?></td>
                                             <td><?= $t['provinsi']; ?></td>
+                                            <td><?= $t['alamat']; ?></td>
                                             <td><?= $t['name_pt']; ?></td>
                                             <td><?= $t['pic']; ?></td>
                                             <td><?= $t['whatsapp']; ?></td>
@@ -88,58 +90,62 @@
                     <div class="card-body">
                         <h5 class="card-title">Datatables</h5>
                         <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>
-
-                        <!-- Table with stripped rows -->
-                        <table class="table " id="dataTable">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Position</th>
-                                    <th scope="col">Age</th>
-                                    <th scope="col">Start Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Brandon Jacob</td>
-                                    <td>Designer</td>
-                                    <td>28</td>
-                                    <td>2016-05-25</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Bridie Kessler</td>
-                                    <td>Developer</td>
-                                    <td>35</td>
-                                    <td>2014-12-05</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Ashleigh Langosh</td>
-                                    <td>Finance</td>
-                                    <td>45</td>
-                                    <td>2011-08-12</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>Angus Grady</td>
-                                    <td>HR</td>
-                                    <td>34</td>
-                                    <td>2012-06-11</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>Raheem Lehner</td>
-                                    <td>Dynamic Division Officer</td>
-                                    <td>47</td>
-                                    <td>2011-04-19</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
-
+                        <div class="table table-responsive ">
+                            <table id="dataTable" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nama Kampus</th>
+                                        <th>Kabupaten/Kota</th>
+                                        <th>Provinsi</th>
+                                        <th>Alamat</th>
+                                        <th>Jenis pT</th>
+                                        <th>PIC</th>
+                                        <th>Whatsapp</th>
+                                        <th>Email</th>
+                                        <th>Status Member</th>
+                                        <th>SPH</th>
+                                        <th>SPK</th>
+                                        <th>SLA</th>
+                                        <th>Instalasi</th>
+                                        <th>Migrasi Data</th>
+                                        <th>Pelatihan</th>
+                                        <th>Invoice</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    <?php foreach ($tables as $t) : ?>
+                                        <tr>
+                                            <td><?= $i; ?></td>
+                                            <td><?= $t['name']; ?></td>
+                                            <td><?= $t['kota']; ?></td>
+                                            <td><?= $t['provinsi']; ?></td>
+                                            <td><?= $t['alamat']; ?></td>
+                                            <td><?= $t['name_pt']; ?></td>
+                                            <td><?= $t['pic']; ?></td>
+                                            <td><?= $t['whatsapp']; ?></td>
+                                            <td><?= $t['email']; ?></td>
+                                            <td><?= $t['name_mem']; ?></td>
+                                            <td><?= $t['name_sp']; ?></td>
+                                            <td><?= $t['name_sur']; ?></td>
+                                            <td><?= $t['name_sl']; ?></td>
+                                            <td><?= $t['name_inst']; ?></td>
+                                            <td><?= $t['name_mig']; ?></td>
+                                            <td><?= $t['name_pelat']; ?></td>
+                                            <td><?= $t['name_inv']; ?></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a href="<?= base_url('leads/edit/' . $t['id']); ?>" class="btn btn-primary btn-sm"><i class="fas fa-pen"></i></a>
+                                                    <a href="<?= base_url('leads/delete/' . $t['id']); ?>" class="btn btn-danger btn-sm btn-hapus"><i class="fas fa-trash"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <?php $i++; ?>
+                                    <?php endforeach; ?>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
