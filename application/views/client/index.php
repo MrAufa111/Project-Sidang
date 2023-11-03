@@ -13,6 +13,7 @@
                                         <th>Nama Kampus</th>
                                         <th>Kabupaten/Kota</th>
                                         <th>Provinsi</th>
+                                        <th>Alamat</th>
                                         <th>Jenis PT</th>
                                         <th>PIC</th>
                                         <th>Whatsapp</th>
@@ -37,6 +38,7 @@
                                             <td><?= $t['name']; ?></td>
                                             <td><?= $t['kota']; ?></td>
                                             <td><?= $t['provinsi']; ?></td>
+                                            <td><?= $t['Alamat']; ?></td>
                                             <td><?= $t['name_pt']; ?></td>
                                             <td><?= $t['pic']; ?></td>
                                             <td><?= $t['whatsapp']; ?></td>

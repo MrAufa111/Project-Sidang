@@ -26,6 +26,11 @@
                         </div>
                         <div class="col-6 mt-3">
                             <div class="input-group col-12">
+                                <input type="text" class="form-control" placeholder="Alamat" name="alamat" value="<?= $data_client['alamat']; ?>">
+                            </div>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <div class="input-group col-12">
                                 <select name="jenispt" id="jenispt" class="form-control">
                                     <option disabled>Pilih Jenis PT</option>
                                     <?php foreach ($jenis as $j) : ?>
