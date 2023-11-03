@@ -65,31 +65,20 @@ class M_billing extends CI_model
         $query = $this->db->get()->result_array();
         return $query;
     }
-    public function countpemasukan()
+    public function countpengeluaran()
     {
         $bulanSaatIni = date('m'); // Mendapatkan bulan saat ini
         $tahunSaatIni = date('Y'); // Mendapatkan tahun saat ini
-
-        $this->db->select('SUM(REPLACE(total_tagihan, ".", "")) AS total_tagihan');
-        $this->db->from('currency');
-        $this->db->where('YEAR(created_at)', $tahunSaatIni);
-        $this->db->where('MONTH(created_at)', $bulanSaatIni);
-        $query = $this->db->get()->result_array();
-        return $query;
-    }
-    public function countpengeluaran()
-    {
-        $bulanSaatIni = date('m');
-        $tahunSaatIni = date('Y');
 
         $this->db->select('SUM(REPLACE(harga, ".", "")) AS harga');
         $this->db->from('pengeluaran');
         $this->db->where('YEAR(tanggal)', $tahunSaatIni);
         $this->db->where('MONTH(tanggal)', $bulanSaatIni);
         $query = $this->db->get()->result_array();
-
         return $query;
     }
+
+
     public function tambah_data_billing($data1)
     {
         // var_dump($data1);
@@ -127,5 +116,19 @@ class M_billing extends CI_model
             ->row_array();
 
         return $result['email'];
+    }
+    public function getCus()
+    {
+        $bulanSaatIni = date('m');
+        $tahunSaatIni = date('Y');
+        $this->db->select('billing.* , client.name_client , status_invoice.name_in, currency.total_tagihan');
+        $this->db->from('billing');
+        $this->db->join('client', 'client.id = billing.client_id');
+        $this->db->join('status_invoice', 'status_invoice.id = billing.status_invoice');
+        $this->db->join('currency', 'currency.id_bill = billing.id');
+        $this->db->where('YEAR(billing.created_at)', $tahunSaatIni);
+        $this->db->where('MONTH(billing.created_at)', $bulanSaatIni);
+        $this->db->order_by('created_at', 'DESC');
+        return $this->db->get()->result_array();
     }
 }

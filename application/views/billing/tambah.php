@@ -40,32 +40,35 @@
 
                         <form>
                             <div class="row">
+                                <div class="form-group">
+                                    <label for="" class="form-label">Nama Kampus</label>
+                                    <select name="namakampus" class="form-select" id="namakampus">
+                                        <option selected>select kampus</option>
+                                        <?php foreach ($client as $c) : ?>
+                                            <option value="<?= $c['id'] ?>"><?= $c['name_client'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="" class="form-label">Nama Kampus</label>
-                                        <select name="namakampus" class="form-select" id="namakampus">
-                                            <option selected>select kampus</option>
-                                            <?php foreach ($client as $c) : ?>
-                                                <option value="<?= $c['id'] ?>"><?= $c['name_client'] ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
+                                        <label for="" class="form-label">Email Kampus</label>
+                                        <input type="text" readonly name="emailkampus" id="emailkampus" class="form-control" placeholder="Email Kampus..">
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="form-label">Tanggal Awal</label>
                                         <input type="date" name="tanggalawal" id="tanggalawal" class="form-control" placeholder="Nama Kampus..">
                                     </div>
                                     <div class="form-group">
-                                        <label for="" class="form-label">Nominal Tagihan</label>
-                                        <input type="text" name="nominaltagihan" id="nominaltagihan" class="form-control" placeholder="Nama Kampus..">
+                                        <label for="statusaktif" class="form-label">Status Aktif</label>
+                                        <select name="statusaktif" id="statusaktif" class="form-select">
+                                            <option selected>Select Status</option>
+                                            <?php foreach ($statusa as $s) : ?>
+                                                <option value="<?= $s['id']; ?>"><?= $s['name_ak']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="" class="form-label">Potongan</label>
-                                        <input type="text" name="potongan" id="potongan" class="form-control" placeholder="Nama Kampus..">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="form-label">Total Tagihan</label>
-                                        <input type="text" name="totaltagihan" id="totaltagihan" readonly class="form-control" placeholder="Nama Kampus..">
-                                    </div>
+
+
                                     <div class="form-group">
                                         <label for="" class="form-label">Nama Barang</label>
                                         <input type="text" class="form-control" name="barang" id="barang" placeholder="Masukan Barang">
@@ -73,10 +76,7 @@
                                     <div id="element2" class="form-group"></div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="" class="form-label">Email Kampus</label>
-                                        <input type="text" readonly name="emailkampus" id="emailkampus" class="form-control" placeholder="Email Kampus..">
-                                    </div>
+
                                     <div class="form-group">
                                         <label for="" class="form-label">Tanggal Akhir</label>
                                         <input type="date" name="tanggalakhir" id="tanggalakhir" class="form-control" placeholder="Email Kampus..">
@@ -90,15 +90,7 @@
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="statusaktif" class="form-label">Status Aktif</label>
-                                        <select name="statusaktif" id="statusaktif" class="form-select">
-                                            <option selected>Select Status</option>
-                                            <?php foreach ($statusa as $s) : ?>
-                                                <option value="<?= $s['id']; ?>"><?= $s['name_ak']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
+
                                     <div class="form-group">
                                         <label for="" class="form-label">Status Penagihan</label>
                                         <select name="statuspen" id="statuspen" class="form-select">
@@ -132,6 +124,28 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="row">
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Potongan</label>
+                                        <input type="text" name="potongan" id="potongan" class="form-control" placeholder="Nama Kampus..">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Nominal Tagihan</label>
+                                        <input type="text" name="nominaltagihan" readonly id="nominaltagihan" class="form-control" placeholder="Nama Kampus..">
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Total Tagihan</label>
+                                        <input type="text" name="totaltagihan" id="totaltagihan" readonly class="form-control" placeholder="Nama Kampus..">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="justify-content-end d-flex mt-3">
                                 <!-- <div class="me-1">
                                     <div class="form-switch mt-2 me-3">
@@ -158,9 +172,9 @@
 
 <script>
     $('#simpanData').on('click', function() {
-        var data = [];
+        let data = [];
         $('table tbody tr').each(function() {
-            var row = {};
+            let row = {};
             row.name_barang = $(this).find('.name_barang').text();
             row.harga = $(this).find('.harga').text();
             data.push(row);
@@ -202,8 +216,7 @@
         });
     });
     $('#namakampus').on('change', function() {
-        var selectedValue = $(this).val(); // Mendapatkan nilai terpilih dari elemen select
-        // console.log(selectedValue);
+        var selectedValue = $(this).val();
         $.ajax({
             url: '<?= base_url('Setup_billing/getclient') ?>',
             method: 'POST',
@@ -233,8 +246,24 @@
         let barang = $('#barang').val();
         let harga = $('#harga').val();
 
-        $('#tabletambah').append('<tr><td>' + (rowCount + 1) + '</td><td class="name_barang"">' + barang + '</td><td class="harga">' + harga + '</td><td><a class="btn btn-danger" id="delval"><i class="bi bi-trash"></i></a></td></tr>');
-    })
+        harga = harga.replace(/[^0-9]/g, '');
+
+        if (!isNaN(harga)) {
+            $('#tabletambah').append('<tr><td>' + (rowCount + 1) + '</td><td class="name_barang">' + barang + '</td><td class="harga">' + formatRupiah(harga) + '</td><td><a class="btn btn-danger delval"><i class="bi bi-trash"></i></a></td></tr>');
+            let totalHarga = 0;
+            $('.harga').each(function() {
+                let hargaStr = $(this).text();
+                hargaStr = hargaStr.replace(/[^0-9]/g, '');
+                totalHarga += parseFloat(hargaStr);
+            });
+
+            $('#nominaltagihan').val(formatRupiah(totalHarga));
+
+            $('#barang').val('');
+            $('#harga').val('');
+        }
+    });
+
     $('#tabletambah').on('click', '#delval', function() {
         $(this).closest('tr').remove();
     });
@@ -270,6 +299,9 @@
     });
 
     function formatRupiah(angka, prefix) {
+        // Pastikan angka adalah string
+        angka = angka.toString();
+
         var number_string = angka.replace(/[^,\d]/g, '').toString(),
             split = number_string.split(','),
             sisa = split[0].length % 3,
@@ -283,9 +315,8 @@
         }
 
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        return prefix == undefined ? rupiah : (rupiah ? rupiah : '');
+        return prefix == undefined ? rupiah : (rupiah ? prefix + rupiah : '');
     }
-
     const nominalTagihanInput = document.getElementById("nominaltagihan");
     const potonganInput = document.getElementById("potongan");
     const totalTagihanInput = document.getElementById("totaltagihan");

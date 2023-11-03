@@ -54,7 +54,7 @@
                     <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
                         <div class="d-flex justify-content-center py-4">
-                            <a href="index.html" class="logo d-flex align-items-center w-auto">
+                            <a href="<?= base_url() ?>" class="logo d-flex align-items-center w-auto">
                                 <img src="<?= base_url() ?>assets/img/Asset 14.png" alt="">
                                 <span class="d-none d-lg-block">SIMPEL</span>
                             </a>
@@ -74,8 +74,8 @@
                                     <div class="col-12">
                                         <label for="yourUsername" class="form-label">Username</label>
                                         <div class="input-group has-validation">
-                                            <input type="text" name="username" class="form-control" id="yourUsername" required>
-                                            <div class="invalid-feedback">Please enter your username.</div>
+                                            <input type="text" name="username" class="form-control <?= form_error('username') ? 'is-invalid' : ''; ?>" placeholder="Username" id="yourUsername" required>
+                                            <div class="invalid-feedback"><?= form_error('username'); ?></div>
                                             <span class="input-group-text" id="inputGroupPrepend">@</span>
                                         </div>
                                     </div>
@@ -83,15 +83,18 @@
                                     <div class="col-12">
                                         <label for="yourPassword" class="form-label">Password</label>
                                         <div class="input-group has-validation">
-                                            <input type="password" name="password" class="form-control" id="yourPassword" required>
+                                            <input type="password" name="password" class="form-control <?= form_error('username') ? 'is-invalid' : ''; ?>" placeholder="Password" id="yourPassword" required>
                                             <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-eye" id="eye-icon"></i></span>
-                                            <div class="invalid-feedback">Please enter your username.</div>
+                                            <div class="invalid-feedback"><?= form_error('password'); ?></div>
                                         </div>
                                         <!-- <label for="yourPassword" class="form-label">Password</label>
                                         <input type="password" name="password" class="form-control" id="yourPassword" required>
                                         <div class="invalid-feedback">Please enter your password!</div> -->
                                     </div>
                                     <div class="col-12">
+                                        <div class="g-recaptcha" data-sitekey="6LfDqDwoAAAAAMlOQrdYi8EJzyIHQJrjBQO91RUH" style="transform:scale(1.2);-webkit-transform:scale(1.22);transform-origin:0 0;-webkit-transform-origin:0 0;"></div>
+                                    </div>
+                                    <div class="col-12 mt-4">
                                         <button class="btn btn-primary w-100" type="submit">Login</button>
                                     </div>
                                     <div class="col-12">

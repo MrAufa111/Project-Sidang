@@ -6,6 +6,7 @@ class Client extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_client');
+        check_login();
     }
     public function index()
     {

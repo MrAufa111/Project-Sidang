@@ -8,6 +8,7 @@ class Leads extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_leads');
+        check_login();
     }
     public function index()
     {

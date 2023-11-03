@@ -108,7 +108,7 @@
                                         <i class="bi bi-box-arrow-in-up"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>Rp.350.000.000</h6>
+                                        <h6 id="pengeluaran"></h6>
 
                                     </div>
                                 </div>
@@ -179,48 +179,32 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Customer</th>
-                                            <th scope="col">Product</th>
-                                            <th scope="col">Price</th>
+                                            <th scope="col">Nama Kampus</th>
+                                            <th scope="col">Tanggal</th>
+                                            <th scope="col">Jumlah Harga</th>
                                             <th scope="col">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2457</a></th>
-                                            <td>Brandon Jacob</td>
-                                            <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                                            <td>$64</td>
-                                            <td><span class="badge bg-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2147</a></th>
-                                            <td>Bridie Kessler</td>
-                                            <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                                            <td>$47</td>
-                                            <td><span class="badge bg-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2049</a></th>
-                                            <td>Ashleigh Langosh</td>
-                                            <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                                            <td>$147</td>
-                                            <td><span class="badge bg-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2644</a></th>
-                                            <td>Angus Grady</td>
-                                            <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                                            <td>$67</td>
-                                            <td><span class="badge bg-danger">Rejected</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2644</a></th>
-                                            <td>Raheem Lehner</td>
-                                            <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                                            <td>$165</td>
-                                            <td><span class="badge bg-success">Approved</span></td>
-                                        </tr>
+                                        <?php $i = 1 ?>
+                                        <?php foreach ($custommer as $c) :
+                                            $date = new DateTime($c['created_at']); ?>
+
+                                            <tr>
+                                                <th><?= $i++ ?></th>
+                                                <td><?= $c['name_client'] ?></td>
+                                                <td><?= $date->format('d-M-Y'); ?></td>
+                                                <td>Rp.<?= $c['total_tagihan'] ?></td>
+                                                <td>
+                                                    <?php if ($c['name_in'] == 'Paid') : ?>
+                                                        <span class="badge bg-success"><?= $c['name_in'] ?></span>
+                                                    <?php else : ?>
+                                                        <span class="badge bg-danger"><?= $c['name_in'] ?></span>
+                                                    <?php endif; ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+
                                     </tbody>
                                 </table>
 
@@ -259,83 +243,52 @@
 
 <script src="<?= base_url(); ?>assets/vendor/plugins/jquery/jquery.min.js"></script>
 <script>
+    function formatRupiah(angka) {
+        var number_string = angka.toString();
+        var split = number_string.split(',');
+        var sisa = split[0].length % 3;
+        var rupiah = split[0].substr(0, sisa);
+        var ribuan = split[0].substr(sisa).match(/\d{3}/g);
+
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+
+        return 'Rp. ' + rupiah;
+    }
     $(document).ready(function() {
         $.ajax({
             url: '<?= base_url('billing/keuntungan') ?>',
             type: 'get',
             dataType: 'json', // Tambahkan ini untuk memastikan data yang diterima adalah JSON
             success: function(response) {
-                function formatRupiah(angka) {
-                    var number_string = angka.toString();
-                    var split = number_string.split(',');
-                    var sisa = split[0].length % 3;
-                    var rupiah = split[0].substr(0, sisa);
-                    var ribuan = split[0].substr(sisa).match(/\d{3}/g);
 
-                    if (ribuan) {
-                        separator = sisa ? '.' : '';
-                        rupiah += separator + ribuan.join('.');
-                    }
+                var totalPengeluaranNumerik = parseFloat(response.pengeluaran[0].harga);
+                let totalPemasukanNumerik = parseFloat(response.pemasukan[0].total_tagihan);
 
-                    rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+                if (!isNaN(totalPemasukanNumerik) && !isNaN(totalPengeluaranNumerik)) {
+                    let totalPemasukanRupiah = formatRupiah(totalPemasukanNumerik);
+                    $('#pemasukan').text(totalPemasukanRupiah);
 
-                    return 'Rp. ' + rupiah;
-                }
+                    let totalPengeluaranRupiah = formatRupiah(totalPengeluaranNumerik);
+                    $('#pengeluaran').text(totalPengeluaranRupiah);
 
-
-
-                var totalTagihanNumerik = parseFloat(response[0].total_tagihan);
-                if (!isNaN(totalTagihanNumerik)) {
-                    var totalTagihanRupiah = formatRupiah(totalTagihanNumerik);
-                    $('#pemasukan').text(totalTagihanRupiah);
+                    let countsemua = totalPemasukanNumerik - totalPengeluaranNumerik;
+                    let countRupiah = formatRupiah(countsemua);
+                    $('#keuntungan').text(countRupiah);
                 } else {
-                    // Jika nilai total_tagihan adalah null atau tidak terdefinisi, tampilkan 0
                     $('#pemasukan').text('Rp. 0');
-                }
-            },
-            error: function(error) { // Perbaiki ini, tambahkan parameter error
-                console.log('error: ' + error);
-            }
-        });
-    });
-
-    $(document).ready(function() {
-        $.ajax({
-            url: '<?= base_url('billing/keuntungan') ?>',
-            type: 'get',
-            dataType: 'json', // Tambahkan ini untuk memastikan data yang diterima adalah JSON
-            success: function(response) {
-                function formatRupiah(angka) {
-                    var number_string = angka.toString();
-                    var split = number_string.split(',');
-                    var sisa = split[0].length % 3;
-                    var rupiah = split[0].substr(0, sisa);
-                    var ribuan = split[0].substr(sisa).match(/\d{3}/g);
-
-                    if (ribuan) {
-                        separator = sisa ? '.' : '';
-                        rupiah += separator + ribuan.join('.');
-                    }
-
-                    rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
-
-                    return 'Rp. ' + rupiah;
-                }
-
-
-
-                var totalTagihanNumerik = parseFloat(response[0].total_tagihan);
-                if (!isNaN(totalTagihanNumerik)) {
-                    var totalTagihanRupiah = formatRupiah(totalTagihanNumerik);
-                    $('#keuntungan').text(totalTagihanRupiah);
-                } else {
-                    // Jika nilai total_tagihan adalah null atau tidak terdefinisi, tampilkan 0
+                    $('#pengeluaran').text('Rp. 0');
                     $('#keuntungan').text('Rp. 0');
                 }
             },
-            error: function(error) { // Perbaiki ini, tambahkan parameter error
-                console.log('error: ' + error);
+            error: function(error) {
+                console.log(error);
             }
         });
+
     });
 </script>

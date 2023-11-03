@@ -169,7 +169,7 @@ class Setup_billing extends CI_Controller
         $email = $this->input->post('email');
         $username = $this->input->post('username');
 
-        $mail = $this->PHPMailer_lib->load();
+        $mail = $this->phpmailer_lib->load();
         $mail->ClearAddresses();
         $mail->ClearAttachments();
         $mail->isSMTP();
@@ -182,14 +182,14 @@ class Setup_billing extends CI_Controller
 
         $mail->setFrom('mraufa06@gmail.com', 'Mail');
         $mail->addReplyTo('mraufa06@gmail.com', 'Mail');
-        $mail->addAddress($email);
+        $mail->addAddress('mochammadrifqiaufa02@gmail.com');
 
 
-        $email_data = [
-            // 'content' => $email_content,
-            'receiver_name' => $username, // Nama penerima sudah disertakan dalam data
-        ];
-        $email_template = $this->load->view('admin/member/email', $email_data, true);
+        // $email_data = [
+        //     // 'content' => $email_content,
+        //     'receiver_name' => $username, // Nama penerima sudah disertakan dalam data
+        // ];
+        // $email_template = $this->load->view('admin/member/email', $email_data, true);
 
         $mail->isHTML(true);
         $mail->Subject = 'Aktifasi Email';
@@ -204,5 +204,9 @@ class Setup_billing extends CI_Controller
             exit;
             $this->session->set_flashdata('notif', 'Member Berhasil Di Update, tetapi Email Gagal Terkirim' . $mail->ErrorInfo);
         }
+    }
+    public function gmail()
+    {
+        $this->load->view('billing/templates/billing_templates');
     }
 }
