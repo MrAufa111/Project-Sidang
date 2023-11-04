@@ -70,11 +70,14 @@ class M_billing extends CI_model
         $bulanSaatIni = date('m'); // Mendapatkan bulan saat ini
         $tahunSaatIni = date('Y'); // Mendapatkan tahun saat ini
 
-        $this->db->select('SUM(REPLACE(harga, ".", "")) AS harga');
+        $this->db->select('pengeluaran.tanggal, SUM(REPLACE(pengeluaran_barang.harga, ".", "")) AS harga');
         $this->db->from('pengeluaran');
+        $this->db->join('pengeluaran_barang', 'pengeluaran_barang.id_pengeluaran = pengeluaran.id');
         $this->db->where('YEAR(tanggal)', $tahunSaatIni);
         $this->db->where('MONTH(tanggal)', $bulanSaatIni);
         $query = $this->db->get()->result_array();
+        // var_dump($query);
+        // die;
         return $query;
     }
 
@@ -130,5 +133,9 @@ class M_billing extends CI_model
         $this->db->where('MONTH(billing.created_at)', $bulanSaatIni);
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result_array();
+    }
+    public function getKategoriPengeluaran()
+    {
+        return $this->db->get('kategori_pengeluaran')->result_array();
     }
 }

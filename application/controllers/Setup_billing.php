@@ -102,7 +102,7 @@ class Setup_billing extends CI_Controller
     public function edit($id)
     {
         $uri = $this->uri->segment(3);
-        $data['title'] = 'Edit Billing';
+        $data['title'] = 'yEdit Billing';
         $data['page'] = 'billing/edit';
         $data['statusa'] = $this->db->get('status_aktif')->result_array();
         $data['statusp'] = $this->db->get('status_penagihan')->result_array();

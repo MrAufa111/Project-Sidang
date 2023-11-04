@@ -237,9 +237,6 @@
 
     });
 
-
-
-
     $('#button').click(function() {
         let rows = $('#tabletambah tr');
         let rowCount = rows.length;
@@ -262,11 +259,14 @@
             $('#barang').val('');
             $('#harga').val('');
         }
+
     });
 
-    $('#tabletambah').on('click', '#delval', function() {
+    $('#tabletambah').on('click', '.delval', function() {
+        console.log('ok');
         $(this).closest('tr').remove();
     });
+
     $(document).ready(function() {
         $('.btn-deletebarang').click(function() {
             let idd = document.getElementById('id').value;;
@@ -295,7 +295,7 @@
 
     var rupiah = document.getElementById('harga');
     rupiah.addEventListener('keyup', function(e) {
-        rupiah.value = formatRupiah(this.value, 'Rp. ');
+        rupiah.value = formatRupiah(this.value);
     });
 
     function formatRupiah(angka, prefix) {
