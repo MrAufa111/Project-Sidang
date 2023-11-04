@@ -72,8 +72,8 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="Qyt">Kuantitas</label>
-                                        <input type="text" class="form-control" id="barang" placeholder="Kuantias">
+                                        <label for="Qyt" class="form-label">Kuantitas</label>
+                                        <input type="text" class="form-control" id="kuantitas" placeholder="Kuantias">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -146,27 +146,26 @@
     $('#button').click(function() {
         let rows = $('#tabletambah tr');
         let rowCount = rows.length;
+        let kuantitas = $('#kuantitas').val();
         let barang = $('#barang').val();
         let harga = $('#harga').val();
-        let qty = 1;
-
         harga = harga.replace(/[^0-9]/g, '');
+        let total = kuantitas * harga;
 
         if (!isNaN(harga)) {
-            $('#tabletambah').append(
-                '<tr>' +
-                '<td>' + rowCount + '</td>' +
-                '<td>' + barang + '</td>' +
-                '<td>' +
-                '<a class="btn btn-success tambah">Tambah</a>' +
-                '<span class="qty">' + qty + '</span>' +
-                '<a class="btn btn-danger kurang">Kurang</a>' +
-                '</td>' +
-                '<td>' + formatRupiah(harga) + '</td>' +
-                '</tr>'
-            );
+            $('#tabletambah').append('<tr><td>' + (rowCount + 1) + '</td><td class="name_barang">' + barang + '</td><td class="qyt">' + kuantitas + '</td><td class="harga">' + formatRupiah(total) + '</td><td><a class="btn btn-danger delval"><i class="bi bi-trash"></i></a></td></tr>');
+            let totalHarga = 0;
+            $('.harga').each(function() {
+                let hargaStr = $(this).text();
+                hargaStr = hargaStr.replace(/[^0-9]/g, '');
+                totalHarga += parseFloat(hargaStr);
+            });
+
+            $('#nominaltagihan').val(formatRupiah(totalHarga));
+
             $('#barang').val('');
             $('#harga').val('');
         }
+
     });
 </script>

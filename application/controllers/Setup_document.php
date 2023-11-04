@@ -9,14 +9,34 @@ class Setup_document extends CI_Controller
         check_login();
         $this->load->model('Crud_model');
     }
+    public function tambah()
+    {
+        $data = [
+            'client_id' => $this->input->post('client_id'),
+            'name' => $this->input->post('name'),
+            'jenis_document' => $this->input->post('jenis_document'),
+            'file' => $this->input->post('file'),
+            'content' => $this->input->post('content'),
+            'tanggal_pembuatan' => $this->input->post('tanggal_pembuatan'),
+            'tanggal_pengiriman' => $this->input->post('tanggal_pengiriman'),
+
+        ];
+        $this->db->insert('document', $data);
+        $this->session->set_flashdata('ingfo', '<div class="alert alert-success" role="alert">
+            New sub menu added</div>');
+        redirect('Dash/document');
+    }
     public function tamdoc()
     {
         $data['title'] = '';
-        $data['page'] = 'user/tamdata';
-        $this->load->view('user/templates/index', $data);
+        $data['page'] = 'document/tamdata';
+        $this->load->view('document/templates/index', $data);
+        $this->session->set_flashdata('ingfo', '<div class="alert alert-success" role="alert">Add success! </div>');
+        redirect('Dash/document');
     }
-    public function editdoc($id)
+    public function editdoc()
     {
+        $id = $this->input->post('id');
         $data = array(
             'client_id' => $this->input->post('client_id'),
             'name' => $this->input->post('name'),
@@ -26,10 +46,7 @@ class Setup_document extends CI_Controller
             'tanggal_pembuatan' => $this->input->post('tanggal_pembuatan'),
             'tanggal_pengiriman' => $this->input->post('tanggal_pengiriman'),
         );
-        $where = array(
-            'id' => $id,
-        );
-        $this->Crud_model->editdocu($where, $data, 'document');
+        $this->Crud_model->editdocu($data, $id);
         $this->session->set_flashdata('ingfo', '<div class="alert alert-success" role="alert">Update success! </div>');
         redirect('Dash/document');
     }
