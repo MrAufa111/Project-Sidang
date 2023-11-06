@@ -38,16 +38,17 @@
                     <div class="card-body">
                         <h5 class="card-title">Setup Pengeluaran</h5>
 
-                        <form>
+                        <form action="<?= base_url('setupPengeluaran/editPengeluaran') ?>" method="post">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group ">
+                                        <input type="hidden" id="id" name="id" value="<?= $pengeluaran['id'] ?>">
                                         <label for="kategori" class="form-label">Kategori</label>
                                         <div class="d-flex">
                                             <select name="kategori" id="kategori" class="form-select">
                                                 <option selected>Pilih Kategori</option>
                                                 <?php foreach ($kategori as $k) : ?>
-                                                    <option value="<?= $k['id'] ?>"><?= $k['name_kategori'] ?></option>
+                                                    <option <?= $k['id'] == $pengeluaran['kategori_pengeluaran'] ? 'selected' : '' ?> value="<?= $k['id'] ?>"><?= $k['name_kategori'] ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <a href="<?= base_url('setupPengeluaran/kategori') ?>" class="btn btn-success"><i class="bi bi-plus-circle"></i></a>
@@ -55,15 +56,15 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="tanggal" class="form-label">Tanggal</label>
-                                        <input type="date" class="form-control" id="tanggal" name="tanggal">
+                                        <input type="date" class="form-control" id="tanggal" value="<?= $pengeluaran['tanggal'] ?>" name="tanggal">
                                     </div>
                                     <div class="form-group">
                                         <label for="penanggung" class="form-label">Penanggung Jawab</label>
-                                        <input type="text" class="form-control" id="penanggung" placeholder="penanggung Jawab" name="penanggung">
+                                        <input type="text" class="form-control" id="penanggung" value="<?= $pengeluaran['penanggung_jawab'] ?>" placeholder="penanggung Jawab" name="penanggung">
                                     </div>
                                     <div class="form-group">
                                         <label for="toko">Nama Toko</label>
-                                        <input type="text" class="form-control" id="toko" placeholder="Nama Toko" name="toko">
+                                        <input type="text" class="form-control" id="toko" value="<?= $pengeluaran['name_toko'] ?>" placeholder="Nama Toko" name="toko">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -101,19 +102,28 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="table-bordered" id="tabletambah">
+                                                <?php $i = 1 ?>
+                                                <?php foreach ($barang as $b) : ?>
+                                                    <?php if ($b['id_pengeluaran'] == $pengeluaran['id']) : ?>
+                                                        <input type="hidden" id="idbar" name="idbar" value="<?= $b['id']; ?>">
+                                                        <tr>
+                                                            <td><?= $i++ ?></td>
+                                                            <td><?= $b['barang'] ?></td>
+                                                            <td><?= $b['qyt'] ?></td>
+                                                            <td><?= $b['harga_satuan'] ?></td>
+                                                            <td class="harga"><?= $b['total_barang'] ?></td>
+                                                            <td><a style="color: red;pointer-events: auto;" class="btn-deletebarang d-flex align-items-center justify-content-center"><i class="bi bi-trash"></i></a></td>
+                                                        </tr>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
 
                                             </tbody>
-                                            <tr>
-                                                <td colspan=""></td>
-                                                <td colspan=""></td>
-                                                <td colspan=""></td>
-                                                <td colspan=""></td>
-                                                <td colspan="2">
-                                                    <h1 class="h5" id="total"></h1>
-                                                </td>
-                                            </tr>
+
                                         </table>
                                     </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <input type="text" id="total" name="total" class="form-control">
                                 </div>
 
                             </div>
@@ -134,50 +144,6 @@
 <script src="<?= base_url(); ?>assets/vendor/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 
 <script>
-    $('#simpanData').on('click', function() {
-        let data = [];
-        $('#tabletambah tr').each(function() {
-            let row = {};
-            row.name_barang = $(this).find('.name_barang').text();
-            row.qyt = $(this).find('.qyt').text();
-            row.hargaSatuan = $(this).find('.hargaSatuan').text();
-            row.harga = $(this).find('.harga').text();
-            data.push(row);
-        });
-        let kategori = $('#kategori').val();
-        let tanggal = $('#tanggal').val();
-        let penanggung = $('#penanggung').val();
-        let toko = $('#toko').val();
-        let total = $('#total').text();
-        total = total.replace('Rp.', '');
-        console.log(data);
-        $.ajax({
-            url: '<?= base_url('setupPengeluaran/insert') ?>',
-            method: 'POST',
-            data: {
-                kategori: kategori,
-                tanggal: tanggal,
-                penanggung: penanggung,
-                toko: toko,
-                total_tagihan: total,
-                data: data
-            },
-            success: function() {
-                window.location.href = '<?= base_url('setupPengeluaran') ?>'
-            },
-            error: function(error) {
-                console.log('Gagal menyimpan data ke database.');
-            }
-        });
-    });
-    $(document).ready(function() {
-
-        let rupiah = $('#harga');
-        rupiah.on('input', function(e) {
-            rupiah.val(formatRupiah(this.value));
-        });
-    });
-
     function formatRupiah(angka, prefix) {
         // Pastikan angka adalah string
         angka = angka.toString();
@@ -200,42 +166,78 @@
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return prefix == undefined ? rupiah : (rupiah ? prefix + rupiah : '');
     }
-
     $('#button').click(function() {
-        let rows = $('#tabletambah tr');
-        let rowCount = rows.length;
-        let kuantitas = $('#kuantitas').val();
-        let hargasatuan = $('#harga').val();
+        let id = $('#id').val();
         let barang = $('#barang').val();
         let harga = $('#harga').val();
+        let kuantitas = $('#kuantitas').val();
         harga = harga.replace(/[^0-9]/g, '');
-        let total = kuantitas * harga;
+        let total_tagihan = harga * kuantitas;
+        let totalTagihanRupiah = formatRupiah(total_tagihan);
+        let hargarupiah = formatRupiah(harga);
+        console.log(hargarupiah);
+        $.ajax({
+            url: "<?= base_url('SetupPengeluaran/addbarang'); ?>",
+            type: 'POST',
+            data: {
+                id: id,
+                barang: barang,
+                kuantitas: kuantitas,
+                total_tagihan: totalTagihanRupiah,
+                harga: hargarupiah,
+            },
+            success: function() {
 
-        if (!isNaN(harga)) {
-            $('#tabletambah').append('<tr><td>' + (rowCount + 1) + '</td><td class="name_barang">' + barang + '</td><td class="qyt">' + kuantitas + '</td><td class="hargaSatuan">' + hargasatuan + '</td><td class="harga">' + formatRupiah(total) + '</td><td><a class="btn btn-danger delval"><i class="bi bi-trash"></i></a></td></tr>');
-            let totalHarga = 0;
-            $('.harga').each(function() {
-                let hargaStr = $(this).text();
-                hargaStr = hargaStr.replace(/[^0-9]/g, '');
-                totalHarga += parseFloat(hargaStr);
-            });
-            $('#total').text(formatRupiah(totalHarga, 'Rp.'));
+                location.reload();
 
-            // $('#barang').val('');
-            // $('#kuantitas').val('');
-            // $('#harga').val('');
-        }
+            },
+        })
+
+
+    })
+    $(document).ready(function() {
+        let data = [];
+        $('#tabletambah tr').each(function() {
+            let row = {};
+            let hargaRupiah = $(this).find('.harga').text(); // Ambil harga dalam format rupiah
+            let hargaAngka = parseFloat(hargaRupiah.replace(/[^0-9,-]/g, '').replace(',', '.')); // Konversi ke format angka
+            row.harga = hargaAngka;
+            data.push(row);
+        });
+
+
+        let totalHarga = 0;
+
+        data.forEach(function(row) {
+
+
+            totalHarga += parseFloat(row.harga);
+        });
+
+        $('#total').val(formatRupiah(totalHarga));
+        console.log(totalHarga)
+        let rupiah = $('#harga');
+        rupiah.on('input', function(e) {
+            rupiah.val(formatRupiah(this.value));
+        });
     });
-    $('#tabletambah').on('click', '.delval', function() {
-        let row = $(this).closest('tr');
-        let hargaStr = row.find('.harga').text();
-        hargaStr = hargaStr.replace(/[^0-9]/g, ''); // Ambil nilai harga
-        let harga = parseFloat(hargaStr);
 
-        let totalHarga = parseFloat($('#total').text().replace(/[^0-9]/g, '')); // Ambil total harga saat ini
-        totalHarga -= harga; // Kurangi total dengan harga elemen yang dihapus
-        $('#total').text(formatRupiah(totalHarga)); // Update total yang sudah diformat
+    $(document).ready(function() {
+        $('.btn-deletebarang').click(function() {
+            let idd = document.getElementById('id').value;;
+            let id = document.getElementById('idbar').value;
+            $.ajax({
+                url: "<?= base_url('setupPengeluaran/deletebarang/'); ?>" + id,
+                type: "POST",
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    console.log(response)
+                    location.reload();
 
-        row.remove(); // Hapus elemen dari tabel
-    });
+                }
+            })
+        })
+    })
 </script>

@@ -35,14 +35,8 @@ class Setup_billing extends CI_Controller
     }
     public function insertData()
     {
-        // if (error_reporting(0)) {
-        //     redirect('Setup_billing/tambah');
-        // }
         $input = $this->input->post(NULL, TRUE);
         if ($this->input->post()) {
-
-            // $invoice = $input['invoice'];
-            // $status = ($invoice == 1) ? 1 : 0;
             $data1 = array(
                 'client_id' => $input['namakampus'],
                 'status_aktif' => $input['statusaktif'],
@@ -66,7 +60,6 @@ class Setup_billing extends CI_Controller
                 $cur = $this->Model->tambah_data_currency($data2);
 
                 if ($cur) {
-
                     $input_data = $this->input->post('data');
 
                     if ($input_data) {
@@ -99,11 +92,13 @@ class Setup_billing extends CI_Controller
         }
     }
 
+
     public function edit($id)
     {
         $uri = $this->uri->segment(3);
-        $data['title'] = 'yEdit Billing';
+        $data['title'] = 'Edit Billing';
         $data['page'] = 'billing/edit';
+        $data['client'] = $this->db->get('client')->result_array();
         $data['statusa'] = $this->db->get('status_aktif')->result_array();
         $data['statusp'] = $this->db->get('status_penagihan')->result_array();
         $data['periode'] = $this->db->get('periode')->result_array();
@@ -118,7 +113,7 @@ class Setup_billing extends CI_Controller
         $is_active = $input['sinvoice'];
         $status = ($is_active == 1) ? 1 : 0;
         if ($this->input->post()) {
-            $data1['client_id'] = $input['id'];
+            $data1['client_id'] = $input['namakampus'];
             $data1['tanngal_awal'] = $input['tanggalawal'];
             $data1['tanggal_akhir'] = $input['tanggalakhir'];
             $data1['status_aktif'] = $input['statusaktif'];
@@ -130,7 +125,8 @@ class Setup_billing extends CI_Controller
             $data2['potongan'] = $input['potongan'];
             $data2['total_tagihan'] = $input['totaltagihan'];
 
-
+            // var_dump($data1, $data2);
+            // die;
             $this->Model->update($data1, $data2, $id);
 
             if ($this->db->trans_status() === FALSE) {
@@ -208,5 +204,19 @@ class Setup_billing extends CI_Controller
     public function gmail()
     {
         $this->load->view('billing/templates/billing_templates');
+    }
+    public function delete($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('billing');
+
+        $this->db->where('id_bill', $id);
+        $this->db->delete('currency');
+
+        $this->db->where('id_bill', $id);
+        $this->db->delete('barang');
+
+        $this->session->set_flashdata('notif', 'Invoice Berhasil Di Hapus');
+        redirect('Setup_billing');
     }
 }

@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     <label for="" class="form-label">Nama Kampus</label>
-                                    <select name="namakampus" class="form-select" id="namakampus">
+                                    <select name="namakampus" required class="form-select" id="namakampus">
                                         <option selected>select kampus</option>
                                         <?php foreach ($client as $c) : ?>
                                             <option value="<?= $c['id'] ?>"><?= $c['name_client'] ?></option>
@@ -56,11 +56,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="form-label">Tanggal Awal</label>
-                                        <input type="date" name="tanggalawal" id="tanggalawal" class="form-control" placeholder="Nama Kampus..">
+                                        <input type="date" required name="tanggalawal" id="tanggalawal" class="form-control" placeholder="Nama Kampus..">
                                     </div>
                                     <div class="form-group">
                                         <label for="statusaktif" class="form-label">Status Aktif</label>
-                                        <select name="statusaktif" id="statusaktif" class="form-select">
+                                        <select name="statusaktif" required id="statusaktif" class="form-select">
                                             <option selected>Select Status</option>
                                             <?php foreach ($statusa as $s) : ?>
                                                 <option value="<?= $s['id']; ?>"><?= $s['name_ak']; ?></option>
@@ -79,11 +79,11 @@
 
                                     <div class="form-group">
                                         <label for="" class="form-label">Tanggal Akhir</label>
-                                        <input type="date" name="tanggalakhir" id="tanggalakhir" class="form-control" placeholder="Email Kampus..">
+                                        <input type="date" required name="tanggalakhir" id="tanggalakhir" class="form-control" placeholder="Email Kampus..">
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="form-label">Periode Penagihan</label>
-                                        <select name="periode" id="periode" class="form-select">
+                                        <select name="periode" required id="periode" class="form-select">
                                             <option selected>Select Periode</option>
                                             <?php foreach ($periode as $p) : ?>
                                                 <option value="<?= $p['id']; ?>"><?= $p['name_periode']; ?></option>
@@ -93,7 +93,7 @@
 
                                     <div class="form-group">
                                         <label for="" class="form-label">Status Penagihan</label>
-                                        <select name="statuspen" id="statuspen" class="form-select">
+                                        <select name="statuspen" required id="statuspen" class="form-select">
                                             <option selected>Select Status</option>
                                             <?php foreach ($statusp as $s) : ?>
                                                 <option value="<?= $s['id']; ?>"><?= $s['name_pen']; ?></option>
@@ -129,20 +129,20 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="" class="form-label">Potongan</label>
-                                        <input type="text" name="potongan" id="potongan" class="form-control" placeholder="Nama Kampus..">
+                                        <input type="text" required name="potongan" id="potongan" class="form-control" placeholder="Potongan">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="" class="form-label">Nominal Tagihan</label>
-                                        <input type="text" name="nominaltagihan" readonly id="nominaltagihan" class="form-control" placeholder="Nama Kampus..">
+                                        <input type="text" required name="nominaltagihan" readonly id="nominaltagihan" class="form-control" placeholder="Nominal Tagihan">
                                     </div>
 
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="" class="form-label">Total Tagihan</label>
-                                        <input type="text" name="totaltagihan" id="totaltagihan" readonly class="form-control" placeholder="Nama Kampus..">
+                                        <input type="text" required name="totaltagihan" id="totaltagihan" readonly class="form-control" placeholder="Total Tagihan">
                                     </div>
                                 </div>
                             </div>
@@ -214,6 +214,10 @@
                 console.log('Gagal menyimpan data ke database.');
             }
         });
+    });
+    let potongan = $('#potongan');
+    potongan.on('input', function(e) {
+        potongan.val(formatRupiah(this.value));
     });
     $('#namakampus').on('change', function() {
         var selectedValue = $(this).val();
@@ -297,6 +301,7 @@
     rupiah.addEventListener('keyup', function(e) {
         rupiah.value = formatRupiah(this.value);
     });
+
 
     function formatRupiah(angka, prefix) {
         // Pastikan angka adalah string
