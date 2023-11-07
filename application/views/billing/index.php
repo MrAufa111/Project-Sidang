@@ -188,7 +188,9 @@
                                     <tbody>
                                         <?php $i = 1 ?>
                                         <?php foreach ($custommer as $c) :
-                                            $date = new DateTime($c['created_at']); ?>
+                                            $date = new DateTime($c['created_at']);
+                                            // if ($c['status_invoice'] == 'Paid') :
+                                        ?>
 
                                             <tr>
                                                 <th><?= $i++ ?></th>
@@ -203,7 +205,9 @@
                                                     <?php endif; ?>
                                                 </td>
                                             </tr>
-                                        <?php endforeach; ?>
+                                        <?php
+                                        // endif;
+                                        endforeach; ?>
 
                                     </tbody>
                                 </table>
@@ -243,21 +247,24 @@
 
 <script src="<?= base_url(); ?>assets/vendor/plugins/jquery/jquery.min.js"></script>
 <script>
-    function formatRupiah(angka) {
-        var number_string = angka.toString();
-        var split = number_string.split(',');
-        var sisa = split[0].length % 3;
-        var rupiah = split[0].substr(0, sisa);
-        var ribuan = split[0].substr(sisa).match(/\d{3}/g);
+    function formatRupiah(angka, prefix) {
+        // Pastikan angka adalah string
+        angka = angka.toString();
 
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        // tambahkan titik jika yang di input sudah menjadi angka ribuan
         if (ribuan) {
             separator = sisa ? '.' : '';
             rupiah += separator + ribuan.join('.');
         }
 
-        rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
-
-        return 'Rp. ' + rupiah;
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? prefix + rupiah : '');
     }
     $(document).ready(function() {
         $.ajax({
@@ -271,14 +278,14 @@
 
                 if (!isNaN(totalPemasukanNumerik) && !isNaN(totalPengeluaranNumerik)) {
                     let totalPemasukanRupiah = formatRupiah(totalPemasukanNumerik);
-                    $('#pemasukan').text(totalPemasukanRupiah);
+                    $('#pemasukan').text('Rp.' + totalPemasukanRupiah);
 
                     let totalPengeluaranRupiah = formatRupiah(totalPengeluaranNumerik);
-                    $('#pengeluaran').text(totalPengeluaranRupiah);
+                    $('#pengeluaran').text('Rp.' + totalPengeluaranRupiah);
 
-                    let countsemua = totalPemasukanNumerik - totalPengeluaranNumerik;
+                    let countsemua = totalPemasukanNumerik -= totalPengeluaranNumerik;
                     let countRupiah = formatRupiah(countsemua);
-                    $('#keuntungan').text(countRupiah);
+                    $('#keuntungan').text('Rp.' + countRupiah);
                 } else {
                     $('#pemasukan').text('Rp. 0');
                     $('#pengeluaran').text('Rp. 0');

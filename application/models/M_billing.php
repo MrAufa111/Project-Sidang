@@ -57,11 +57,13 @@ class M_billing extends CI_model
     {
         $bulanSaatIni = date('m'); // Mendapatkan bulan saat ini
         $tahunSaatIni = date('Y'); // Mendapatkan tahun saat ini
-
-        $this->db->select('SUM(REPLACE(total_tagihan, ".", "")) AS total_tagihan');
+        $status = 1;
+        $this->db->select('SUM(REPLACE(total_tagihan, ".", "")) AS total_tagihan, billing.status_invoice');
         $this->db->from('currency');
-        $this->db->where('YEAR(created_at)', $tahunSaatIni);
-        $this->db->where('MONTH(created_at)', $bulanSaatIni);
+        $this->db->join('billing', 'billing.id = currency.id_bill');
+        $this->db->where('YEAR(currency.created_at)', $tahunSaatIni);
+        $this->db->where('MONTH(currency.created_at)', $bulanSaatIni);
+        $this->db->where('billing.status_invoice', $status);
         $query = $this->db->get()->result_array();
         return $query;
     }
@@ -70,7 +72,7 @@ class M_billing extends CI_model
         $bulanSaatIni = date('m'); // Mendapatkan bulan saat ini
         $tahunSaatIni = date('Y'); // Mendapatkan tahun saat ini
 
-        $this->db->select('pengeluaran.tanggal, SUM(REPLACE(pengeluaran_barang.harga, ".", "")) AS harga');
+        $this->db->select('pengeluaran.tanggal, SUM(REPLACE(pengeluaran.total_pengeluaran, ".", "")) AS harga');
         $this->db->from('pengeluaran');
         $this->db->join('pengeluaran_barang', 'pengeluaran_barang.id_pengeluaran = pengeluaran.id');
         $this->db->where('YEAR(tanggal)', $tahunSaatIni);
@@ -131,11 +133,61 @@ class M_billing extends CI_model
         $this->db->join('currency', 'currency.id_bill = billing.id');
         $this->db->where('YEAR(billing.created_at)', $tahunSaatIni);
         $this->db->where('MONTH(billing.created_at)', $bulanSaatIni);
+        $this->db->where('billing.status_invoice', '1');
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result_array();
     }
     public function getKategoriPengeluaran()
     {
         return $this->db->get('kategori_pengeluaran')->result_array();
+    }
+    public function insertPengeluaran($data1)
+    {
+        $this->db->insert('pengeluaran', $data1);
+        if ($this->db->affected_rows() > 0) {
+            return $this->db->insert_id();
+        } else {
+            return false;
+        }
+    }
+    public function insertBarangPengeluaran($data2)
+    {
+        $this->db->insert('pengeluaran_barang', $data2);
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function getPengeluaran()
+    {
+        $this->db->select('pengeluaran.*,  kategori_pengeluaran.name_kategori');
+        $this->db->from('pengeluaran');
+        // $this->db->join('pengeluaran_barang', 'pengeluaran_barang.id_pengeluaran = pengeluaran.id');
+        $this->db->join('kategori_pengeluaran', 'kategori_pengeluaran.id = pengeluaran.kategori_pengeluaran');
+        return $this->db->get()->result_array();
+    }
+    public function getPengeluaranById($id)
+    {
+        $this->db->select('pengeluaran.*,  kategori_pengeluaran.name_kategori');
+        $this->db->from('pengeluaran');
+        // $this->db->join('pengeluaran_barang', 'pengeluaran_barang.id_pengeluaran = pengeluaran.id');
+        $this->db->join('kategori_pengeluaran', 'kategori_pengeluaran.id = pengeluaran.kategori_pengeluaran');
+        $this->db->where('pengeluaran.id', $id);
+        return $this->db->get()->row_array();
+    }
+    public function barang()
+    {
+        return $this->db->get('pengeluaran_barang')->result_array();
+    }
+    public function deletebarangg($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('pengeluaran_barang');
+    }
+    public function updatepengeluaran($id, $data)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('pengeluaran', $data);
     }
 }
