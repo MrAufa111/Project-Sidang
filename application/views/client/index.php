@@ -14,7 +14,7 @@
                                         <th>Kabupaten/Kota</th>
                                         <th>Provinsi</th>
                                         <th>Alamat</th>
-                                        <th>Jenis PT</th>
+                                        <th>Jenis PT</th> 
                                         <th>PIC</th>
                                         <th>Whatsapp</th>
                                         <th>Email</th>

@@ -34,21 +34,15 @@ class Setup_document extends CI_Controller
         $this->session->set_flashdata('ingfo', '<div class="alert alert-success" role="alert">Add success! </div>');
         redirect('Dash/document');
     }
-    public function editdoc()
+    public function editdoc($id)
     {
-        $id = $this->input->post('id');
-        $data = array(
-            'client_id' => $this->input->post('client_id'),
-            'name' => $this->input->post('name'),
-            'jenis_document' => $this->input->post('jenis_document'),
-            'content' => $this->input->post('content'),
-            'file' => $this->input->post('file'),
-            'tanggal_pembuatan' => $this->input->post('tanggal_pembuatan'),
-            'tanggal_pengiriman' => $this->input->post('tanggal_pengiriman'),
-        );
-        $this->Crud_model->editdocu($data, $id);
-        $this->session->set_flashdata('ingfo', '<div class="alert alert-success" role="alert">Update success! </div>');
-        redirect('Dash/document');
+        $data['title'] = '';
+        $data['page'] = 'user/edit';
+        $data['document'] = $this->db->get_where('document', ['id' => $id])->row_array();
+
+        $data['jenis'] = $this->Doc_model->getJDoc();
+        $data['file'] = $this->Doc_model->getJFile();
+        $this->load->view('user/templates/index', $data);
     }
     public function hapusdoc($id)
     {
