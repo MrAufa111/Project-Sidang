@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> -->
 
     <!-- Vendor CSS Files -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link href="<?= base_url(); ?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?= base_url(); ?>assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="<?= base_url(); ?>assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
@@ -103,6 +104,7 @@
     <script src="<?= base_url(); ?>assets/vendor/chart.js/chart.umd.js"></script>
     <script src="<?= base_url(); ?>assets/vendor/echarts/echarts.min.js"></script>
     <script src="<?= base_url(); ?>assets/vendor/quill/quill.min.js"></script>
+    
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script src="<?= base_url(); ?>assets/vendor/simple-datatables/simple-datatables.js"></script>
