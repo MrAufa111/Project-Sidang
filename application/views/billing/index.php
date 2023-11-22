@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="card-body">
-                                <h5 class="card-title">Pemasukan |<span> Today</span></h5>
+                                <h5 class="card-title">Pemasukan |<span> This Month</span></h5>
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -101,7 +101,7 @@
                             </div>
 
                             <div class="card-body">
-                                <h5 class="card-title">Pengeluaran |<span> This Year</span></h5>
+                                <h5 class="card-title">Pengeluaran |<span> This Month</span></h5>
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -138,7 +138,7 @@
                             </div>
 
                             <div class="card-body">
-                                <h5 class="card-title">Customers |<span> This Year</span></h5>
+                                <h5 class="card-title">Customers <span></span></h5>
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">

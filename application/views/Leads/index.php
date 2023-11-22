@@ -88,8 +88,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Datatables</h5>
-                        <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>
+                        <h5 class="card-title"> <a href="<?= base_url('leads/addl'); ?>" class="btn btn-success btn-sm mb-3"><i class="fas fa-plus"></i> Add Data</a></h5>
                         <div class="table table-responsive ">
                             <table id="dataTable" class="table">
                                 <thead>
@@ -119,7 +118,7 @@
                                     <?php foreach ($tables as $t) : ?>
                                         <tr>
                                             <td><?= $i; ?></td>
-                                            <td><?= $t['name']; ?></td>
+                                            <td><?= $t['name_client']; ?></td>
                                             <td><?= $t['kota']; ?></td>
                                             <td><?= $t['provinsi']; ?></td>
                                             <td><?= $t['alamat']; ?></td>
@@ -137,8 +136,8 @@
                                             <td><?= $t['name_inv']; ?></td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a href="<?= base_url('leads/edit/' . $t['id']); ?>" class="btn btn-primary btn-sm"><i class="fas fa-pen"></i></a>
-                                                    <a href="<?= base_url('leads/delete/' . $t['id']); ?>" class="btn btn-danger btn-sm btn-hapus"><i class="fas fa-trash"></i></a>
+                                                    <a href="<?= base_url('leads/edit/' . $t['id']); ?>" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                                    <a href="<?= base_url('leads/delete/' . $t['id']); ?>" class="btn btn-danger btn-sm btn-hapus"><i class="bi bi-trash"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -159,7 +158,9 @@
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 <script>
-    var table = $("#dataTable").DataTable();
+    var table = $("#dataTable").DataTable({
+        responsive: true
+    });
     $("#dataTable tbody").on("click", "tr", function() {
         var data = table.row(this).data();
     });

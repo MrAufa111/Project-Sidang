@@ -108,7 +108,7 @@ class M_billing extends CI_model
     {
         $this->db->select('COUNT(*) as total_count');
         $this->db->from('client');
-        $this->db->where('status_member', '1');
+        $this->db->where('status_member', '3');
         $query = $this->db->get();
         $result = $query->row();
         return $totalCount = $result->total_count;

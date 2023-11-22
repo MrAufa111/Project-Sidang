@@ -14,7 +14,7 @@
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
+    </div>
 </section>
 
 <main id="main" class="main">
@@ -28,12 +28,11 @@
                 <li class="breadcrumb-item active">Setup Billing</li>
             </ol>
         </nav>
-    </div><!-- End Page Title -->
+    </div>
 
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
-
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Setup Pengeluaran</h5>
@@ -101,7 +100,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="table-bordered" id="tabletambah">
-
                                             </tbody>
                                             <tr>
                                                 <td colspan=""></td>
@@ -115,7 +113,6 @@
                                         </table>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="justify-content-end d-flex mt-3">
                                 <button class="btn btn-primary" id="simpanData" type="submit">Submit</button>
@@ -123,12 +120,10 @@
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
-
-</main><!-- End #main -->
+</main>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="<?= base_url(); ?>assets/vendor/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>

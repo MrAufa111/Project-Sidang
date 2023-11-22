@@ -10,7 +10,7 @@ class M_leads extends CI_Model
     }
     public function getAllSurat()
     {
-        return $this->db->get('statussurat')->result_array();
+        return $this->db->get('status_surat')->result_array();
     }
     public function getpelatihan()
     {

@@ -1,8 +1,10 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+require FCPATH . 'vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 
 defined('BASEPATH') or exit('No direct script access allowed');
 class Setup_billing extends CI_Controller
@@ -218,5 +220,27 @@ class Setup_billing extends CI_Controller
 
         $this->session->set_flashdata('notif', 'Invoice Berhasil Di Hapus');
         redirect('Setup_billing');
+    }
+    public function Spreadsheet_export()
+    {
+        header('Content-Type: application/vnd.ms.excel');
+        header('Content-Disposition: attachment;filename="transaction.xlsx"');
+        $spreadsheet = new Spreadsheet();
+        $activeWorkshee = $spreadsheet->getActiveSheet();
+        $activeWorkshee->setCellValue('A1', 'Code');
+        $activeWorkshee->setCellValue('B1', 'Customor');
+        $activeWorkshee->setCellValue('C1', 'total_amount');
+        $activeWorkshee->setCellValue('D1', 'tendered');
+        // $trans = $this->M_cafee->Trans();
+        $i = 2;
+        // foreach ($trans as $t) {
+        //     $activeWorkshee->setCellValue('A' . $i, $t->code);
+        //     $activeWorkshee->setCellValue('B' . $i, $t->customer);
+        //     $activeWorkshee->setCellValue('C' . $i, $t->total_amount);
+        //     $activeWorkshee->setCellValue('D' . $i, $t->tendered);
+        //     $i++;
+        // }
+        $writer = new Xlsx($spreadsheet);
+        $writer->save("php://output");
     }
 }

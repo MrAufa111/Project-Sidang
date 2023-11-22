@@ -20,7 +20,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"></h5>
+                        <h5 class="card-title justify-content-end d-flex"><a href="<?= base_url('Setup_billing/Spreadsheet_export'); ?>" class="btn btn-success mb-3">Download Excel</a></h5>
                         <div class="table table-responsive">
                             <table class="table" id="dataTable">
                                 <thead>
