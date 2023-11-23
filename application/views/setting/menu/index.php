@@ -90,7 +90,9 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"></h5>
+                        <h5 class="card-title"> <button type="button" class="btn btn-primary mb-2 btn-add" id="btnadd">
+                                Add Menu
+                            </button></h5>
                         <table class="table" id="dataTable" width="100%">
                             <thead>
                                 <tr>

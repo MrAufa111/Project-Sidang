@@ -58,11 +58,7 @@
                                             <td><?= $b['name_pen']; ?></td>
                                             <td><?= $b['name_in']; ?></td>
                                             <td>
-                                                <!-- <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                    <a href="<?= base_url('Setup_billing/edit/' . $b['id']); ?>" class="btn btn-secondary"><i class="bi bi-pencil-square"></i></a>
-                                                    <a href="<?= base_url('Setup_billing/delete/' . $b['id']); ?>" class="btn btn-danger btn-hapus"><i class="bi bi-trash"></i></a>
-                                                    <a class="btn btn-primary btn-email" data-email="<?= $b['email'] ?>" data-username="<?= $b['name_client'] ?>"><i class="ri-mail-check-fill "></i></a>
-                                                </div> -->
+                                              
                                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                         Action

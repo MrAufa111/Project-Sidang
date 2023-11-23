@@ -20,7 +20,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"></h5>
+                        <h5 class="card-title justify-content-end d-flex"><button class="btn btn-success">Download Excel</button></h5>
                         <div class="table table-responsive">
                             <table class="table" id="dataTable">
                                 <thead>

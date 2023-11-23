@@ -1,12 +1,10 @@
 <?php
-
-require FCPATH . 'vendor/autoload.php';
+defined('BASEPATH') or exit('No direct script access allowed');
+require 'vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-
-defined('BASEPATH') or exit('No direct script access allowed');
 class Setup_billing extends CI_Controller
 {
     public function __construct()
@@ -225,22 +223,52 @@ class Setup_billing extends CI_Controller
     {
         header('Content-Type: application/vnd.ms.excel');
         header('Content-Disposition: attachment;filename="transaction.xlsx"');
+
         $spreadsheet = new Spreadsheet();
-        $activeWorkshee = $spreadsheet->getActiveSheet();
-        $activeWorkshee->setCellValue('A1', 'Code');
-        $activeWorkshee->setCellValue('B1', 'Customor');
-        $activeWorkshee->setCellValue('C1', 'total_amount');
-        $activeWorkshee->setCellValue('D1', 'tendered');
-        // $trans = $this->M_cafee->Trans();
+        $activeWorksheet = $spreadsheet->getActiveSheet();
+
+        $activeWorksheet->setCellValue('A1', 'No');
+        $activeWorksheet->setCellValue('B1', 'Nama Kampus');
+        $activeWorksheet->setCellValue('C1', 'Email Kampus');
+        $activeWorksheet->setCellValue('D1', 'Status Aktif');
+        $activeWorksheet->setCellValue('E1', 'Nominal Tagihan');
+        $activeWorksheet->setCellValue('F1', 'Potongan');
+        $activeWorksheet->setCellValue('G1', 'Total Tagihan');
+        $activeWorksheet->setCellValue('H1', 'Tanggal Awal');
+        $activeWorksheet->setCellValue('I1', 'Tanggal Akhir');
+        $activeWorksheet->setCellValue('J1', 'Periode Penagihan');
+        $activeWorksheet->setCellValue('K1', 'Status Penagihan');
+        $activeWorksheet->setCellValue('L1', 'Status');
+
+        $trans = $this->Model->getBilling();
+        $o = 1;
         $i = 2;
-        // foreach ($trans as $t) {
-        //     $activeWorkshee->setCellValue('A' . $i, $t->code);
-        //     $activeWorkshee->setCellValue('B' . $i, $t->customer);
-        //     $activeWorkshee->setCellValue('C' . $i, $t->total_amount);
-        //     $activeWorkshee->setCellValue('D' . $i, $t->tendered);
-        //     $i++;
-        // }
+
+        foreach ($trans as $t) {
+            $activeWorksheet->setCellValue('A' . $i, $o++);
+            $activeWorksheet->setCellValue('B' . $i, $t['name_client']);
+            $activeWorksheet->setCellValue('C' . $i, $t['email']);
+            $activeWorksheet->setCellValue('D' . $i, $t->name_ak ?? '');
+            $activeWorksheet->setCellValue('E' . $i, $t->nominal_tagihan ?? '');
+            $activeWorksheet->setCellValue('F' . $i, $t->potongan ?? '');
+            $activeWorksheet->setCellValue('G' . $i, $t->total_tagihan ?? '');
+            $activeWorksheet->setCellValue('H' . $i, $t->tanngal_awal ?? '');
+            $activeWorksheet->setCellValue('I' . $i, $t->tanggal_akhir ?? '');
+            $activeWorksheet->setCellValue('J' . $i, $t->name_periode ?? '');
+            $activeWorksheet->setCellValue('K' . $i, $t->name_pen ?? '');
+            $activeWorksheet->setCellValue('L' . $i, $t->name_in ?? '');
+            $i++;
+        }
+
+
         $writer = new Xlsx($spreadsheet);
         $writer->save("php://output");
+
+        // $spreadsheet = new Spreadsheet();
+        // $activeWorksheet = $spreadsheet->getActiveSheet();
+        // $activeWorksheet->setCellValue('A1', 'Hello World !');
+
+        // $writer = new Xlsx($spreadsheet);
+        // $writer->save("php://output");
     }
 }
