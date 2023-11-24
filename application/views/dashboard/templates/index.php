@@ -11,13 +11,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>AdminLTE 3 | Top Navigation</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="icon" href="<?= base_url() ?>assets/img/Asset 14.png">
+    <link rel="icon" href="<?= base_url() ?>assets/assets/img/Asset 14.png">
     <link href="<?= base_url() ?>assets/img/Asset 14.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= base_url(); ?>assets/assets/vendor/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?= base_url(); ?>assets/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= base_url(); ?>assets/assets/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition layout-top-nav">
@@ -47,12 +47,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- REQUIRED SCRIPTS -->
 
     <!-- jQuery -->
-    <script src="<?= base_url(); ?>assets/vendor/plugins/jquery/jquery.min.js"></script>
+    <script src="<?= base_url(); ?>assets/assets/vendor/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="<?= base_url(); ?>assets/vendor/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= base_url(); ?>assets/assets/vendor/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <!-- <script src="<?= base_url(); ?>assets/vendor/chart.js/Chart.min.js"></script> -->
-    <script src="<?= base_url(); ?>assets/js/adminlte.min.js"></script>
+    <script src="<?= base_url(); ?>assets/assets/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
 </body>
 

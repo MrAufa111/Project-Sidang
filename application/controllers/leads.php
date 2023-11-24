@@ -1,5 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+require 'vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Leads extends CI_Controller
 {
@@ -152,5 +156,59 @@ class Leads extends CI_Controller
             $data['sla'] = $this->M_leads->getSla();
             $this->load->view('Leads/templates/index', $data);
         }
+    }
+
+    public function cetak()
+    {
+        header('Content-Type: application/vnd.ms.excel');
+        header('Content-Disposition: attachment;filename="Laporan_Client.xlsx"');
+
+        $spreadsheet = new Spreadsheet();
+        $activeWorksheet = $spreadsheet->getActiveSheet();
+        $activeWorksheet->setCellValue('A1', 'No');
+        $activeWorksheet->setCellValue('B1', 'Nama Kampus');
+        $activeWorksheet->setCellValue('C1', 'Kabupaten/Kota');
+        $activeWorksheet->setCellValue('D1', 'Provinsi');
+        $activeWorksheet->setCellValue('E1', 'Alamat');
+        $activeWorksheet->setCellValue('F1', 'Jenis PT');
+        $activeWorksheet->setCellValue('G1', 'PIC');
+        $activeWorksheet->setCellValue('H1', 'Whatsapp');
+        $activeWorksheet->setCellValue('I1', 'Email');
+        $activeWorksheet->setCellValue('J1', 'Status Member');
+        $activeWorksheet->setCellValue('K1', 'SPH');
+        $activeWorksheet->setCellValue('L1', 'SPK');
+        $activeWorksheet->setCellValue('M1', 'SLA');
+        $activeWorksheet->setCellValue('N1', 'Instalasi');
+        $activeWorksheet->setCellValue('O1', 'Migrasi Data');
+        $activeWorksheet->setCellValue('P1', 'Pelatihan');
+        $activeWorksheet->setCellValue('Q1', 'Invoice');
+
+        $trans = $this->M_leads->tables();
+        $o = 1;
+        $i = 2;
+
+        foreach ($trans as $t) {
+            $activeWorksheet->setCellValue('A' . $i, $o++);
+            $activeWorksheet->setCellValue('B' . $i, $t['name_client']);
+            $activeWorksheet->setCellValue('C' . $i, $t['kota']);
+            $activeWorksheet->setCellValue('D' . $i, $t['provinsi']);
+            $activeWorksheet->setCellValue('E' . $i, $t['alamat']);
+            $activeWorksheet->setCellValue('F' . $i, $t['name_pt']);
+            $activeWorksheet->setCellValue('G' . $i, $t['pic']);
+            $activeWorksheet->setCellValue('H' . $i, $t['whatsapp']);
+            $activeWorksheet->setCellValue('I' . $i, $t['email']);
+            $activeWorksheet->setCellValue('J' . $i, $t['name_mem']);
+            $activeWorksheet->setCellValue('K' . $i, $t['name_sp']);
+            $activeWorksheet->setCellValue('L' . $i, $t['name_sur']);
+            $activeWorksheet->setCellValue('M' . $i, $t['name_sl']);
+            $activeWorksheet->setCellValue('N' . $i, $t['name_inst']);
+            $activeWorksheet->setCellValue('O' . $i, $t['name_mig']);
+            $activeWorksheet->setCellValue('P' . $i, $t['name_pelat']);
+            $activeWorksheet->setCellValue('Q' . $i, $t['name_inv']);
+            $i++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('php://output');
     }
 }
