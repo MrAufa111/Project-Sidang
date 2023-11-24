@@ -222,7 +222,7 @@ class Setup_billing extends CI_Controller
     public function Spreadsheet_export()
     {
         header('Content-Type: application/vnd.ms.excel');
-        header('Content-Disposition: attachment;filename="transaction.xlsx"');
+        header('Content-Disposition: attachment;filename="Billing.xlsx"');
 
         $spreadsheet = new Spreadsheet();
         $activeWorksheet = $spreadsheet->getActiveSheet();
@@ -248,27 +248,19 @@ class Setup_billing extends CI_Controller
             $activeWorksheet->setCellValue('A' . $i, $o++);
             $activeWorksheet->setCellValue('B' . $i, $t['name_client']);
             $activeWorksheet->setCellValue('C' . $i, $t['email']);
-            $activeWorksheet->setCellValue('D' . $i, $t->name_ak ?? '');
-            $activeWorksheet->setCellValue('E' . $i, $t->nominal_tagihan ?? '');
-            $activeWorksheet->setCellValue('F' . $i, $t->potongan ?? '');
-            $activeWorksheet->setCellValue('G' . $i, $t->total_tagihan ?? '');
-            $activeWorksheet->setCellValue('H' . $i, $t->tanngal_awal ?? '');
-            $activeWorksheet->setCellValue('I' . $i, $t->tanggal_akhir ?? '');
-            $activeWorksheet->setCellValue('J' . $i, $t->name_periode ?? '');
-            $activeWorksheet->setCellValue('K' . $i, $t->name_pen ?? '');
-            $activeWorksheet->setCellValue('L' . $i, $t->name_in ?? '');
+            $activeWorksheet->setCellValue('D' . $i, $t['name_ak']);
+            $activeWorksheet->setCellValue('E' . $i, $t['nominal_tagihan']);
+            $activeWorksheet->setCellValue('F' . $i, $t['potongan']);
+            $activeWorksheet->setCellValue('G' . $i, $t['total_tagihan']);
+            $activeWorksheet->setCellValue('H' . $i, $t['tanngal_awal']);
+            $activeWorksheet->setCellValue('I' . $i, $t['tanggal_akhir']);
+            $activeWorksheet->setCellValue('J' . $i, $t['name_periode']);
+            $activeWorksheet->setCellValue('K' . $i, $t['name_pen']);
+            $activeWorksheet->setCellValue('L' . $i, $t['name_in']);
             $i++;
         }
 
-
         $writer = new Xlsx($spreadsheet);
         $writer->save("php://output");
-
-        // $spreadsheet = new Spreadsheet();
-        // $activeWorksheet = $spreadsheet->getActiveSheet();
-        // $activeWorksheet->setCellValue('A1', 'Hello World !');
-
-        // $writer = new Xlsx($spreadsheet);
-        // $writer->save("php://output");
     }
 }

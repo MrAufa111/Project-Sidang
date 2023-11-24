@@ -1,5 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+require 'vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class setupPengeluaran extends CI_Controller
 {
@@ -13,6 +17,7 @@ class setupPengeluaran extends CI_Controller
     {
         $data['title'] = 'Setup Pengeluaran';
         $data['page'] = 'billing/setupPengeluaran';
+
         $data['kategori'] = $this->model->getKategoriPengeluaran();
         $this->load->view('billing/templates/index', $data);
     }
@@ -88,6 +93,7 @@ class setupPengeluaran extends CI_Controller
     {
         $data['title'] = 'Pengeluaran Data';
         $data['page'] = 'billing/pengeluaranData';
+        // $data['ww'] = $this->model->getPengeluaranE();
         $data['pengeluaran'] = $this->model->getPengeluaran();
         $this->load->view('billing/templates/index', $data);
     }
@@ -137,5 +143,43 @@ class setupPengeluaran extends CI_Controller
         $this->db->delete('pengeluaran_barang');
         $this->session->set_flashdata('notif', 'Berhasil Menghapus Pengeluaran');
         redirect('setupPengeluaran/data');
+    }
+    public function Export()
+    {
+        header('Content-Type: application/vnd.ms.excel');
+        header('Content-Disposition: attachment;filename="Pengeluaran.xlsx"');
+
+        $spreadsheet = new Spreadsheet();
+        $activeWorksheet = $spreadsheet->getActiveSheet();
+
+        $activeWorksheet->setCellValue('A1', 'No');
+        $activeWorksheet->setCellValue('B1', 'Nama kategori');
+        $activeWorksheet->setCellValue('C1', 'Tanggal');
+        $activeWorksheet->setCellValue('D1', 'Nama Toko');
+        $activeWorksheet->setCellValue('E1', 'Penanggung Jawab');
+        $activeWorksheet->setCellValue('F1', 'Barang');
+        $activeWorksheet->setCellValue('G1', 'qyt');
+        $activeWorksheet->setCellValue('H1', 'Harga Satuan Barang');
+        $activeWorksheet->setCellValue('I1', 'Total');
+
+        $trans = $this->model->getPengeluaranE();
+        $o = 1;
+        $i = 2;
+
+        foreach ($trans as $t) {
+            $activeWorksheet->setCellValue('A' . $i, $o++);
+            $activeWorksheet->setCellValue('B' . $i, $t['name_kategori']);
+            $activeWorksheet->setCellValue('C' . $i, $t['tanggal']);
+            $activeWorksheet->setCellValue('D' . $i, $t['name_toko']);
+            $activeWorksheet->setCellValue('E' . $i, $t['penanggung_jawab']);
+            $activeWorksheet->setCellValue('F' . $i, $t['barang']);
+            $activeWorksheet->setCellValue('G' . $i, $t['qyt']);
+            $activeWorksheet->setCellValue('H' . $i, $t['harga_satuan']);
+            $activeWorksheet->setCellValue('I' . $i, $t['total_barang']);
+            $i++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save("php://output");
     }
 }

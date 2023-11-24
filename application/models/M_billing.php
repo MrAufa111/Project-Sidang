@@ -190,4 +190,14 @@ class M_billing extends CI_model
         $this->db->where('id', $id);
         $this->db->update('pengeluaran', $data);
     }
+    public function getPengeluaranE()
+    {
+        $this->db->select('pengeluaran.*, kategori_pengeluaran.name_kategori, pengeluaran_barang.barang, pengeluaran_barang.qyt, pengeluaran_barang.harga_satuan, pengeluaran_barang.total_barang');
+        $this->db->from('pengeluaran');
+        $this->db->join('pengeluaran_barang', 'pengeluaran_barang.id_pengeluaran = pengeluaran.id');
+        $this->db->join('kategori_pengeluaran', 'kategori_pengeluaran.id = pengeluaran.kategori_pengeluaran');
+        $local = $this->db->get()->result_array();
+
+        return $local;
+    }
 }

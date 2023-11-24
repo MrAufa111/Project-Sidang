@@ -20,7 +20,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title justify-content-end d-flex"><button class="btn btn-success">Download Excel</button></h5>
+                        <h5 class="card-title justify-content-end d-flex"><a href="<?= base_url('setupPengeluaran/Export') ?>" class="btn btn-success">Download Excel</a></h5>
                         <div class="table table-responsive">
                             <table class="table" id="dataTable">
                                 <thead>
