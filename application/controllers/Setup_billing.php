@@ -19,8 +19,6 @@ class Setup_billing extends CI_Controller
         $data['title'] = 'Set Up Billing';
         $data['page'] = 'billing/setup';
         $data['billing'] = $this->Model->getBilling();
-        // var_dump($data['billing']);
-        // exit;
         $this->load->view('billing/templates/index', $data);
     }
     public function tambah()
@@ -125,8 +123,7 @@ class Setup_billing extends CI_Controller
             $data2['potongan'] = $input['potongan'];
             $data2['total_tagihan'] = $input['totaltagihan'];
 
-            // var_dump($data1, $data2);
-            // die;
+            
             $this->Model->update($data1, $data2, $id);
 
             if ($this->db->trans_status() === FALSE) {

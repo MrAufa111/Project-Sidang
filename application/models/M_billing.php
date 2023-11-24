@@ -86,8 +86,7 @@ class M_billing extends CI_model
 
     public function tambah_data_billing($data1)
     {
-        // var_dump($data1);
-        // exit;
+      
         $this->db->insert('billing', $data1);
         if ($this->db->affected_rows() > 0) {
             return $this->db->insert_id();

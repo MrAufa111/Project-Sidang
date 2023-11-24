@@ -14,11 +14,10 @@
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
+    </div>
 </section>
 
 <main id="main" class="main">
-
     <div class="pagetitle">
         <h1><?= $title ?></h1>
         <nav>
@@ -28,16 +27,13 @@
                 <li class="breadcrumb-item active">Setup Billing</li>
             </ol>
         </nav>
-    </div><!-- End Page Title -->
-
+    </div>
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
-
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Setup Billing</h5>
-
                         <form>
                             <div class="row">
                                 <div class="form-group">
@@ -67,8 +63,6 @@
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
-
-
                                     <div class="form-group">
                                         <label for="" class="form-label">Nama Barang</label>
                                         <input type="text" class="form-control" name="barang" id="barang" placeholder="Masukan Barang">
@@ -76,7 +70,6 @@
                                     <div id="element2" class="form-group"></div>
                                 </div>
                                 <div class="col-lg-6">
-
                                     <div class="form-group">
                                         <label for="" class="form-label">Tanggal Akhir</label>
                                         <input type="date" required name="tanggalakhir" id="tanggalakhir" class="form-control" placeholder="Email Kampus..">
@@ -90,7 +83,6 @@
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
-
                                     <div class="form-group">
                                         <label for="" class="form-label">Status Penagihan</label>
                                         <select name="statuspen" required id="statuspen" class="form-select">
@@ -107,7 +99,6 @@
                                     </div>
                                     <div id="element" class="form-group"></div>
                                 </div>
-
                             </div>
                             <div class="table-responsive mt-3">
                                 <table class="table table-bordered" id="dataTable">
@@ -120,12 +111,10 @@
                                         </tr>
                                     </thead>
                                     <tbody class="table-bordered" id="tabletambah">
-
                                     </tbody>
                                 </table>
                             </div>
                             <div class="row">
-
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="" class="form-label">Potongan</label>
@@ -137,7 +126,6 @@
                                         <label for="" class="form-label">Nominal Tagihan</label>
                                         <input type="text" required name="nominaltagihan" readonly id="nominaltagihan" class="form-control" placeholder="Nominal Tagihan">
                                     </div>
-
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
@@ -147,24 +135,14 @@
                                 </div>
                             </div>
                             <div class="justify-content-end d-flex mt-3">
-                                <!-- <div class="me-1">
-                                    <div class="form-switch mt-2 me-3">
-                                        <label class="form-check-label me-5" for="flexSwitchCheckDefault">UnPaid</label>
-                                        <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault" name="invoice" value="1">
-                                        <label class="form-check-label" for="flexSwitchCheckDefault">Paid</label>
-                                    </div>
-                                </div> -->
                                 <button class="btn btn-primary" id="simpanData" type="submit">Submit</button>
                             </div>
                         </form>
-
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
-
 </main>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
