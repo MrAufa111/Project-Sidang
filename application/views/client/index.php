@@ -46,7 +46,8 @@
                                 <tbody>
                                     <?php $i = 1; ?>
                                     <?php foreach ($tables as $t) :
-                                        if ($t['status_member'] == 3) : ?>
+                                        if ($t['status_member'] == 3) :
+                                    ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
                                                 <td><?= $t['name_client']; ?></td>
@@ -71,7 +72,6 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <?php $i++; ?>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                             </table>

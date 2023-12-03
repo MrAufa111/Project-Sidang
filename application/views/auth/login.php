@@ -44,7 +44,7 @@
                                         <div class="invalid-feedback">Please enter your password!</div> -->
                                     </div>
                                     <div class="col-12">
-                                        <div class="g-recaptcha" data-sitekey="6LfDqDwoAAAAAMlOQrdYi8EJzyIHQJrjBQO91RUH" style="transform:scale(1.2);-webkit-transform:scale(1.22);transform-origin:0 0;-webkit-transform-origin:0 0;"></div>
+                                        <div class="g-recaptcha" data-sitekey="6LfDqDwoAAAAAMlOQrdYi8EJzyIHQJrjBQO91RUH"></div>
                                     </div>
                                     <div class="col-12 mt-4">
                                         <button class="btn btn-primary w-100" type="submit">Login</button>

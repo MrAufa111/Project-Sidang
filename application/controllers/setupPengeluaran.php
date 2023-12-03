@@ -37,6 +37,7 @@ class setupPengeluaran extends CI_Controller
     public function insert()
     {
         $input = $this->input->post(NULL, TRUE);
+
         if ($this->input->post()) {
             $data1 = array(
                 'kategori_pengeluaran' => $input['kategori'],
@@ -46,32 +47,32 @@ class setupPengeluaran extends CI_Controller
                 'total_pengeluaran' => $input['total_tagihan'],
             );
 
-            $id = $this->model->insertPengeluaran($data1);
+            // Insert data pengeluaran
+            $id_pengeluaran = $this->model->insertPengeluaran($data1);
 
-            if ($id) {
+            if ($id_pengeluaran) {
                 $input_data = $this->input->post('data');
+
                 if ($input_data) {
                     $data_barang = array(); // Buat array untuk data barang
 
-                    if ($input_data !== null) {
-                        foreach ($input_data as $item) {
-                            // Kumpulkan data barang dalam array
-                            $data_barang[] = array(
-                                'id_pengeluaran' => $id,
-                                'barang' => $item['name_barang'],
-                                'qyt' => $item['qyt'],
-                                'harga_satuan' => $item['hargaSatuan'],
-                                'total_barang' => $item['harga'],
-                            );
-                        }
-
-
-                        $this->db->insert_batch('pengeluaran_barang', $data_barang);
-                        $this->session->set_flashdata('notif', 'Pengeluaran Berhasil Di Input');
-                    } else {
-                        $this->session->set_flashdata('error', 'Invalid JSON data.');
-                        redirect('SetupPengeluaran');
+                    foreach ($input_data as $item) {
+                        // Kumpulkan data barang dalam array
+                        $data_barang[] = array(
+                            'id_pengeluaran' => $id_pengeluaran,
+                            'barang' => $item['name_barang'],
+                            'qyt' => $item['qyt'],
+                            'harga_satuan' => $item['hargaSatuan'],
+                            'total_barang' => $item['harga'],
+                        );
                     }
+
+                    // Insert batch data barang
+                    $this->db->insert_batch('pengeluaran_barang', $data_barang);
+                    $this->session->set_flashdata('notif', 'Pengeluaran Berhasil Di Input');
+                } else {
+                    $this->session->set_flashdata('error', 'Invalid JSON data.');
+                    redirect('SetupPengeluaran');
                 }
             } else {
                 $this->session->set_flashdata('error', 'Failed to save data to billing table.');
@@ -79,6 +80,7 @@ class setupPengeluaran extends CI_Controller
             }
         }
     }
+
 
     public function add()
     {

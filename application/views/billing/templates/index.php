@@ -7,6 +7,7 @@
     <title><?= $title; ?></title>
     <link rel="icon" href="<?= base_url() ?>assets/img/Asset 14.png">
     <link href="<?= base_url() ?>assets/img/Asset 14.png" rel="apple-touch-icon">
+
     <!-- Google Font: Source Sans Pro -->
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
     <!-- Font Awesome -->
@@ -25,7 +26,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css" integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> -->
-    
+
     <!-- Vendor CSS Files -->
     <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/sweetalert2/sweetalert2.min.css">
     <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/plugins/summernote/summernote-bs4.min.css">
@@ -41,43 +42,47 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link href="<?= base_url(); ?>assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
-    <!-- Template Main CSS File -->
     <link href="<?= base_url(); ?>assets/css/style copy.css" rel="stylesheet">
 </head>
 
 <body class="hold-transition sidebar-mini">
-    <!-- Site wrapper -->
     <div class="wrapper">
-        <!-- Navbar -->
-        <?php $this->load->view('billing/templates/topbar'); ?>
-        <!-- /.navbar -->
 
-        <!-- Main Sidebar Container -->
-        <!-- /.sidebar -->
-        <?php $this->load->view('billing/templates/sidebar') ?>
 
-        <div class="content-wrapper" id="content">
+        <!-- Site wrapper -->
+        <div class="wrapper">
+            <!-- Navbar -->
+            <?php $this->load->view('billing/templates/topbar'); ?>
+            <!-- /.navbar -->
+
+            <!-- Main Sidebar Container -->
+            <!-- /.sidebar -->
+            <?php $this->load->view('billing/templates/sidebar') ?>
+
+            <div class="content-wrapper" id="content">
+                <?php
+                $directory = isset($page) ? dirname($page) : 'admin';
+                $page = isset($page) ? basename($page) : 'index';
+                $contentFile = APPPATH . 'views/' . $directory . '/' . $page . '.php';
+
+                if (file_exists($contentFile)) {
+                    $this->load->view($directory . '/' . $page);
+                } else {
+                    redirect(404);
+                }
+                ?>
+
+            </div>
+
             <?php
-            $directory = isset($page) ? dirname($page) : 'admin';
-            $page = isset($page) ? basename($page) : 'index';
-            $contentFile = APPPATH . 'views/' . $directory . '/' . $page . '.php';
-
-            if (file_exists($contentFile)) {
-                $this->load->view($directory . '/' . $page);
-            } else {
-                redirect(404);
-            }
+            $this->load->view('billing/templates/footer.php');
             ?>
-            <!-- /.content -->
-        </div>
-        <!-- /.content-wrapper -->
 
-        <?php $this->load->view('billing/templates/footer.php'); ?>
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+
+            </aside>
+
+        </div>
     </div>
     <!-- ./wrapper -->
 
@@ -109,7 +114,7 @@
     <script src="<?= base_url(); ?>assets/vendor/tinymce/tinymce.min.js"></script>
     <script src="<?= base_url(); ?>assets/vendor/php-email-form/validate.js"></script>
 
-    <!-- Template Main JS File -->
+
     <script src="<?= base_url(); ?>assets/js/myscript.js"></script>
     <script src="<?= base_url(); ?>assets/js/js/main.js"></script>
 
@@ -130,38 +135,38 @@
 
     // function load_content(url) {
 
-    //     var cek_logout;
-    //     $(".loading").fadeIn('fast', function() {
-    //         $.ajax({
-    //             url: "<?= base_url() ?>welcome/coba",
-    //             type: "POST",
-    //             data: {
-    //                 uri: url
-    //             },
-    //             dataType: "json",
-    //             success: function(data) {
-    //                 cek_logout = data;
-    //             }
-    //         }).done(function() {
-    //             if (cek_logout.status == 'login') {
-    //                 if (cek_logout.akses == 'TIDAK') {
-    //                     url = 'c_block';
-    //                 }
+    // var cek_logout;
+    // $(".loading").fadeIn('fast', function() {
+    // $.ajax({
+    // url: "<?= base_url() ?>welcome/coba",
+    // type: "POST",
+    // data: {
+    // uri: url
+    // },
+    // dataType: "json",
+    // success: function(data) {
+    // cek_logout = data;
+    // }
+    // }).done(function() {
+    // if (cek_logout.status == 'login') {
+    // if (cek_logout.akses == 'TIDAK') {
+    // url = 'c_block';
+    // }
 
-    //                 $(".content-wrapper").load("<?= base_url(); ?>index.php/" + url, function() {
-    //                     $(".loading").fadeOut('fast');
-    //                     var abc = $('.submenu').val();
-    //                 });
-    //             } else {
-    //                 window.location.href = "<?= base_url() ?>";
-    //             }
-    //         });
-    //     });
-    //     if (url == 'dashboard') {
-    //         $('body').addClass('bg-white');
-    //     } else {
-    //         $('body').removeClass('bg-white');
-    //     }
+    // $(".content-wrapper").load("<?= base_url(); ?>index.php/" + url, function() {
+    // $(".loading").fadeOut('fast');
+    // var abc = $('.submenu').val();
+    // });
+    // } else {
+    // window.location.href = "<?= base_url() ?>";
+    // }
+    // });
+    // });
+    // if (url == 'dashboard') {
+    // $('body').addClass('bg-white');
+    // } else {
+    // $('body').removeClass('bg-white');
+    // }
     // }
 </script>
 
