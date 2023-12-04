@@ -51,7 +51,7 @@ class Leads extends CI_Controller
     public function insert()
     {
         $data1 = [
-            'name' => $this->input->post('namakampus'),
+            'name_client' => $this->input->post('namakampus'),
             'provinsi' => $this->input->post('provinsi'),
             'kota' => $this->input->post('kota'),
             'JenisPT' => $this->input->post('jenispt'),
@@ -73,8 +73,7 @@ class Leads extends CI_Controller
                 'whatsapp' => $this->input->post('whatsapp'),
                 'email' => $this->input->post('email'),
             ];
-            // var_dump($data2);
-            // exit;
+
             $insert = $this->M_leads->create2($data2);
             $this->session->set_flashdata('notif', 'Success');
         }
