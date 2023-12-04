@@ -3,14 +3,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Crud_model extends CI_Model
 {
-    public function editdocu($where,$data,$table)
-    {
-        $this->db->update($table, $data ,$where);
-    }
-    public function hapusdc($id)
+    public function update($id, $data)
     {
         $this->db->where('id', $id);
-        $this->db->delete('document');
+        $this->db->update('document', $data);
     }
-    
+    public function deletedataa($where, $table)
+    {
+        $this->db->where($where);
+        $this->db->delete($table);
+    }
+
 }
