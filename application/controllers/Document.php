@@ -28,7 +28,7 @@ class Document extends CI_Controller
         $data['page'] = 'document/document';
         $join = 'document.client_id = client.id';
         $tblJoin = 'document';
-        $data['doc'] = $this->Doc_model->getDataJoin($tblJoin,$join,'client')->result();
+        $data['doc'] = $this->Doc_model->getDataJoin($tblJoin, $join, 'client')->result();
         $data['docid'] = $this->Doc_model->getData('document')->result();
         $data['jenis'] = $this->Doc_model->getJDoc();
         $data['file'] = $this->Doc_model->getJFile();
@@ -48,7 +48,10 @@ class Document extends CI_Controller
     {
         $data['title'] = '';
         $data['page'] = 'document/edit';
-        $data['document'] = $this->db->get_where('document', ['id' => $id])->row_array();
+        // $data['document'] = $this->db->get_where('document', ['id' => $id])->row_array();
+        $data['document'] = $this->db->select('document.*, wali.email')->from('document')->join('wali', 'wali.client_id = document.client_id')->where('document.id', $id)->get()->row_array();
+        // var_dump($data['document']);
+        // die;
         $data['jenis'] = $this->Doc_model->getJDoc();
         $data['file'] = $this->Doc_model->getJFile();
         $data['client'] = $this->Doc_model->getData('client')->result();

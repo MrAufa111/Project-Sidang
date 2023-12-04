@@ -39,6 +39,7 @@ class Setup_document extends CI_Controller
         $data['title'] = '';
         $data['page'] = 'document/edit';
         $data['document'] = $this->db->get_where('document', ['id' => $id])->row_array();
+       
         $data['jenis'] = $this->Doc_model->getJDoc();
         $data['file'] = $this->Doc_model->getJFile();
         $data['email'] = $this->Doc_model->getEmailId();
@@ -61,12 +62,13 @@ class Setup_document extends CI_Controller
             $this->Crud_model->update($id, $data);
 
             if ($this->db->trans_status() === FALSE) {
-                $this->session->set_flashdata('notip', 'Data has been updated successfully..');
+                $this->session->set_flashdata('ingfo', 'Data has been updated successfully..');
+                redirect('Document/document');
             } else {
-                $this->session->set_flashdata('notip', 'Data has been updated successfully.');
+                $this->session->set_flashdata('ingfo', 'Data has been updated successfully.');
+                redirect('Document/document');
             }
 
-            redirect('Document/document');
         } else {
             $this->session->set_flashdata('error', 'Error updating data.');
             redirect('Setup_document/edit');

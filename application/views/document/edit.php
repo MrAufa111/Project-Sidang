@@ -1,4 +1,4 @@
-<div class="swal-notip" data-swal="<?= $this->session->flashdata('notip'); ?>"></div>
+<div class="swal" data-swal="<?= $this->session->flashdata('ingfo'); ?>"></div>
 <div class="swal-error" data-swalerror="<?= $this->session->flashdata('error'); ?>"></div>
 
 <main id="main" class="main">
@@ -43,12 +43,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input required type="text" class="form-control" id="email" name="email"
-                                        placeholder="Email">
+                                        placeholder="Email" value="<?= $document['email'] ?>" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <select required name="jenis_document" id="jenis_document" class="form-control">
+                                    <select required name="jenis_document" id="jenis_document" class="form-select">
                                         <option disabled value="">Select Menu</option>
                                         <option <?php if ($document['jenis_document'] == 'SPH') {
                                             echo 'selected';
@@ -64,7 +64,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <select required name="file" id="file" class="form-control">
+                                    <select required name="file" id="file" class="form-select">
                                         <option disabled value="">Select Menu</option>
                                         <option <?php if ($document['file'] == 'PDF') {
                                             echo 'selected';
