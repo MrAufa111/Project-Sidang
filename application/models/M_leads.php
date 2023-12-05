@@ -43,7 +43,7 @@ class M_leads extends CI_Model
 
     function tables()
     {
-        $this->db->select('client.*, wali.*, jenispt.name_pt, migrasi.name_mig, pelatihan.name_pelat, invoice.name_inv, instalasi.name_inst, status_member.name_mem, status_surat.name_sur, sph.name_sp, sla.name_sl');
+        $this->db->select('client.*, wali.pic, wali.whatsapp, wali.email, jenispt.name_pt, migrasi.name_mig, pelatihan.name_pelat, invoice.name_inv, instalasi.name_inst, status_member.name_mem, status_surat.name_sur, sph.name_sp, sla.name_sl');
         $this->db->from('client');
         $this->db->join('wali', 'wali.client_id = client.id');
         $this->db->join('jenispt', 'jenispt.id = client.JenisPT');

@@ -68,9 +68,9 @@
                                                 <td><?= $t['name_inv']; ?></td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <a href="<?= base_url('leads/edit/' . $t['id']); ?>" class="btn btn-primary btn-sm "><i class="bi bi-pencil"></i></a>
+                                                        <a href="<?= base_url('client/editt/' . $t['id']); ?>" class="btn btn-primary btn-sm "><i class="bi bi-pencil"></i></a>
                                                     </div>
-                                                </td>
+                                                </td>   
                                             </tr>
                                         <?php endif; ?>
                                     <?php endforeach; ?>

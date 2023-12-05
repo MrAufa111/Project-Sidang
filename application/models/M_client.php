@@ -22,6 +22,45 @@ class M_client extends CI_Model
 
     //     return $client;
     // }
+
+    public function getjenispt()
+    {
+        return $this->db->get('jenispt')->result_array();
+    }
+    public function getAllSurat()
+    {
+        return $this->db->get('status_surat')->result_array();
+    }
+    public function getpelatihan()
+    {
+        return $this->db->get('pelatihan')->result_array();
+    }
+    public function getstatus()
+    {
+        return $this->db->get('status_member')->result_array();
+    }
+    public function getmigrasi()
+    {
+        return $this->db->get('migrasi')->result_array();
+    }
+    public function getinstalasi()
+    {
+        return $this->db->get('instalasi')->result_array();
+    }
+    public function getinvoice()
+    {
+        return $this->db->get('invoice')->result_array();
+    }
+    public function getSla()
+    {
+        return $this->db->get('sla')->result_array();
+    }
+    public function getSph()
+    {
+        return $this->db->get('sph')->result_array();
+    }
+
+
     public function tables()
     {
         $this->db->select('client.*, wali.pic, wali.whatsapp, wali.email, jenispt.name_pt, migrasi.name_mig, pelatihan.name_pelat, invoice.name_inv, instalasi.name_inst, status_member.name_mem, status_surat.name_sur, sph.name_sp, sla.name_sl');

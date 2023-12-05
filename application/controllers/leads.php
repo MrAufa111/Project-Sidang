@@ -91,7 +91,7 @@ class Leads extends CI_Controller
     public function edit($id = NULL)
     {
 
-        $this->db->select('client.*, wali.*, jenispt.name_pt, migrasi.name_mig, pelatihan.name_pelat, invoice.name_inv, instalasi.name_inst, status_member.name_mem, status_surat.name_sur, sph.name_sp, sla.name_sl');
+        $this->db->select('client.*, wali.pic, wali.whatsapp, wali.email, jenispt.name_pt, migrasi.name_mig, pelatihan.name_pelat, invoice.name_inv, instalasi.name_inst, status_member.name_mem, status_surat.name_sur, sph.name_sp, sla.name_sl');
         $this->db->from('client');
         $this->db->join('wali', 'wali.client_id = client.id');
         $this->db->join('jenispt', 'jenispt.id = client.JenisPT');
@@ -105,6 +105,7 @@ class Leads extends CI_Controller
         $this->db->join('status_member', 'status_member.id = client.status_member');
         $this->db->where('client.id', $id);
         $data_client = $this->db->get()->row_array();
+      
 
         if (!$data_client) {
             show_404();

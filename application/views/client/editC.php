@@ -1,4 +1,3 @@
-
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -19,7 +18,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"> </h5>
-                        <form action="<?= base_url('leads/edit/' . $data_client['id']); ?>" method="post">
+                        <form action="<?= base_url('client/editt/' . $data_client['id']); ?>" method="post">
                             <input type="hidden" value="<?= $data_client['id']; ?>">
 
                             <div class="row">
@@ -172,7 +171,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <a href="<?= base_url('leads'); ?>" class="btn btn-danger btn-sm mb-2 mr-2">Back</a>
+                                <a href="<?= base_url('client'); ?>" class="btn btn-danger btn-sm mb-2 mr-2">Back</a>
                                 <button class="btn btn-primary btn-sm mb-2 mr-2" type="submit" id="submitBtn">Submit</button>
                             </div>
                     </div>

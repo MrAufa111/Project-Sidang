@@ -165,31 +165,31 @@
                             <div class="row">
                                 <div class="col-6 mt-3">
                                     <div class="input-group col-12">
-                                        <input type="text" class="form-control" placeholder="Nama Kampus" name="namakampus">
+                                        <input type="text" class="form-control" placeholder="Nama Kampus" name="namakampus" required>
                                     </div>
                                 </div>
                                 <div class="col-6 mt-3">
                                     <div class="input-group col-12">
-                                        <select name="provinsi" id="provinsi" class="form-control">
+                                        <select name="provinsi" id="provinsi" class="form-control" required>
                                             <option>Pilih Provinsi</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-6 mt-3">
                                     <div class="input-group col-12">
-                                        <select name="kota" id="kota" class="form-control">
+                                        <select name="kota" id="kota" class="form-control" required>
                                             <option>Pilih Kab/Kota</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-6 mt-3">
                                     <div class="input-group col-12">
-                                        <input type="text" class="form-control" placeholder="Alamat" name="alamat" id="alamat">
+                                        <input type="text" class="form-control" placeholder="Alamat" name="alamat" id="alamat" required>
                                     </div>
                                 </div>
                                 <div class="col-6 mt-3">
                                     <div class="input-group col-12">
-                                        <select name="jenispt" id="jenispt" class="form-control">
+                                        <select name="jenispt" id="jenispt" class="form-control" required>
                                             <option selected disabled>Pilih Jenis PT</option>
                                             <?php foreach ($jenis as $j) : ?>
                                                 <option value="<?= $j['id']; ?>"><?= $j['name_pt']; ?></option>
@@ -199,22 +199,22 @@
                                 </div>
                                 <div class="col-6 mt-3">
                                     <div class="input-group col-12">
-                                        <input type="text" class="form-control" placeholder="PIC" name="pic">
+                                        <input type="text" class="form-control" placeholder="PIC" name="pic" required>
                                     </div>
                                 </div>
                                 <div class="col-6 mt-3">
                                     <div class="input-group col-12">
-                                        <input type="number" class="form-control" placeholder="Whatsapp" name="whatsapp">
+                                        <input type="number" class="form-control" placeholder="Whatsapp" name="whatsapp" required>
                                     </div>
                                 </div>
                                 <div class="col-6 mt-3">
                                     <div class="input-group col-12">
-                                        <input type="text" class="form-control" placeholder="Email" name="email">
+                                        <input type="text" class="form-control" placeholder="Email" name="email" required>
                                     </div>
                                 </div>
                                 <div class="col-6 mt-3">
                                     <div class="input-group col-12">
-                                        <select name="status" id="status" class="form-control">
+                                        <select name="status" id="status" class="form-control" required>
                                             <option selected disabled>Pilih Status</option>
                                             <?php foreach ($status as $s) : ?>
                                                 <option value="<?= $s['id']; ?>"><?= $s['name_mem']; ?></option>
@@ -224,7 +224,7 @@
                                 </div>
                                 <div class="col-6 mt-3">
                                     <div class="input-group col-12">
-                                        <select name="sph" id="sph" class="form-control">
+                                        <select name="sph" id="sph" class="form-control" required>
                                             <option selected disabled>SPH </option>
                                             <?php foreach ($sph as $sp) : ?>
                                                 <option value="<?= $sp['id']; ?>"><?= $sp['name_sp']; ?></option>
@@ -234,7 +234,7 @@
                                 </div>
                                 <div class="col-6 mt-3">
                                     <div class="input-group col-12">
-                                        <select name="spk" id="spk" class="form-control">
+                                        <select name="spk" id="spk" class="form-control" required>
                                             <option selected disabled>SPK</option>
                                             <?php foreach ($stat as $st) : ?>
                                                 <option value="<?= $st['id']; ?>"><?= $st['name_sur']; ?></option>
@@ -244,7 +244,7 @@
                                 </div>
                                 <div class="col-6 mt-3">
                                     <div class="input-group col-12">
-                                        <select name="sla" id="sla" class="form-control">
+                                        <select name="sla" id="sla" class="form-control" required>
                                             <option selected disabled>SLA</option>
                                             <?php foreach ($sla as $sl) : ?>
                                                 <option value="<?= $sl['id']; ?>"><?= $sl['name_sl']; ?></option>
@@ -254,7 +254,7 @@
                                 </div>
                                 <div class="col-6 mt-3">
                                     <div class="input-group col-12">
-                                        <select name="instalasi" id="instalasi" class="form-control">
+                                        <select name="instalasi" id="instalasi" class="form-control" required>
                                             <option selected disabled>Instalasi</option>
                                             <?php foreach ($instal as $i) : ?>
                                                 <option value="<?= $i['id']; ?>"><?= $i['name_inst']; ?></option>
@@ -264,7 +264,7 @@
                                 </div>
                                 <div class="col-6 mt-3">
                                     <div class="input-group col-12">
-                                        <select name="migrasi" id="migrasi" class="form-control">
+                                        <select name="migrasi" id="migrasi" class="form-control" required>
                                             <option selected disabled>Migrasi</option>
                                             <?php foreach ($migrasi as $m) : ?>
                                                 <option value="<?= $m['id']; ?>"><?= $m['name_mig']; ?></option>
@@ -274,7 +274,7 @@
                                 </div>
                                 <div class="col-6 mt-3 mb-3">
                                     <div class="input-group col-12">
-                                        <select name="pelatihan" id="pelatihan" class="form-control">
+                                        <select name="pelatihan" id="pelatihan" class="form-control" required>
                                             <option selected disabled>Pelatihan</option>
                                             <?php foreach ($pelatih as $p) : ?>
                                                 <option value="<?= $p['id']; ?>"><?= $p['name_pelat']; ?></option>
@@ -284,7 +284,7 @@
                                 </div>
                                 <div class="col-6 mt-2 mb-3">
                                     <div class="input-group col-12">
-                                        <select name="invoice" id="invoice" class="form-control">
+                                        <select name="invoice" id="invoice" class="form-control" required>
                                             <option selected disabled>Invoice</option>
                                             <?php foreach ($invo as $in) : ?>
                                                 <option value="<?= $in['id']; ?>"><?= $in['name_inv']; ?></option>
