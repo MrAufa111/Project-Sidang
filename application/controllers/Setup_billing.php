@@ -34,6 +34,7 @@ class Setup_billing extends CI_Controller
     public function insertData()
     {
         $input = $this->input->post(NULL, TRUE);
+
         if ($this->input->post()) {
             $data1 = array(
                 'client_id' => $input['namakampus'],
@@ -64,16 +65,23 @@ class Setup_billing extends CI_Controller
                         $data = json_decode($input_data, true);
 
                         if ($data !== null) {
+                            // Inisialisasi array untuk menyimpan semua data barang
+                            $barang_data = array();
+
                             foreach ($data as $item) {
-                                $insert_data = array(
+                                // Tambahkan data barang ke array
+                                $barang_data[] = array(
                                     'id_bill' => $id,
                                     'name_barang' => $item['name_barang'],
                                     'harga' => $item['harga']
                                 );
-                                $this->db->insert('barang', $insert_data);
-                                $this->session->set_flashdata('notif', 'Invoice Berhasil Di Buat!!');
-                                redirect('Setup_billing');
                             }
+
+                            // Masukkan semua data barang ke dalam tabel 'barang'
+                            $this->db->insert_batch('barang', $barang_data);
+
+                            $this->session->set_flashdata('notif', 'Invoice Berhasil Di Buat!!');
+                            redirect('Setup_billing/tambah');
                         } else {
                             $this->session->set_flashdata('error', 'Invalid JSON data.');
                             redirect('Setup_billing/tambah');
@@ -89,6 +97,7 @@ class Setup_billing extends CI_Controller
             }
         }
     }
+
 
 
     public function edit($id)
@@ -123,7 +132,7 @@ class Setup_billing extends CI_Controller
             $data2['potongan'] = $input['potongan'];
             $data2['total_tagihan'] = $input['totaltagihan'];
 
-            
+
             $this->Model->update($data1, $data2, $id);
 
             if ($this->db->trans_status() === FALSE) {
@@ -159,9 +168,22 @@ class Setup_billing extends CI_Controller
     }
     public function kirimemail()
     {
-        $email = $this->input->post('email');
-        $username = $this->input->post('username');
+        $id = $this->input->post('id');
+        // $id = 17;
 
+        $jiko = $this->db->get_where('barang', ['id_bill' => $id])->result_array();
+        // var_dump($jiko);
+        // die;
+
+        $this->db->select('client.name_client, client.alamat, wali.email, billing.*, currency.nominal_tagihan, currency.potongan, currency.total_tagihan');
+        $this->db->from('billing');
+        $this->db->join('client', 'client.id = billing.client_id');
+        $this->db->join('wali', 'wali.client_id = billing.client_id');
+        $this->db->join('currency', 'currency.id_bill = billing.id');
+        $this->db->where('billing.id', $id);
+        $query = $this->db->get()->row_array();
+        // var_dump($query);
+        // die;
         $mail = $this->phpmailer_lib->load();
         $mail->ClearAddresses();
         $mail->ClearAttachments();
@@ -175,21 +197,22 @@ class Setup_billing extends CI_Controller
 
         $mail->setFrom('mraufa06@gmail.com', 'Mail');
         $mail->addReplyTo('mraufa06@gmail.com', 'Mail');
-        $mail->addAddress('mochammadrifqiaufa02@gmail.com');
+        $mail->addAddress($query['email']);
 
+        $mail->addAttachment('/var/tmp/file.tar.gz');
+        $mail->addAttachment('https://github.com/MrAufa111/sidang/assets/91204668/4a73f2f5-abf7-466f-92fa-d6396ef4eb22');
 
-        // $email_data = [
-        //     // 'content' => $email_content,
-        //     'receiver_name' => $username, // Nama penerima sudah disertakan dalam data
-        // ];
-        // $email_template = $this->load->view('admin/member/email', $email_data, true);
+        $email_data = [
+            'content' => $query,
+            'barang' => $jiko,
+        ];
+        $email_template = $this->load->view('billing/templates/billing_templates', $email_data, true);
 
         $mail->isHTML(true);
         $mail->Subject = 'Aktifasi Email';
-        $mail->Body = 'coobaa';
+        $mail->Body = $email_template;
 
-        var_dump($mail->send());
-        exit;
+
         if ($mail->send()) {
             $this->session->set_flashdata('notif', 'Member Berhasil Di Update dan Email Terkirim');
         } else {

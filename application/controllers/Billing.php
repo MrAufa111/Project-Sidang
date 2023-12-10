@@ -33,4 +33,8 @@ class Billing extends CI_Controller
 
         echo json_encode($data);
     }
+    public function template()
+    {
+        $this->load->view('billing/templates/billing_templates');
+    }
 }

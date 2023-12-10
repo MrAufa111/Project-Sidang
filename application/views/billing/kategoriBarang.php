@@ -39,8 +39,8 @@
                                             <td><?= $k['name_kategori'] ?></td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                    <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
-                                                    <button type="button" class="btn btn-secondary"><i class="bi bi-pencil-square"></i></button>
+                                                    <a href="<?= base_url('setupPengeluaran/deletek/' . $k['id']) ?>" class="btn btn-danger btn-hapus"><i class="bi bi-trash"></i></a>
+                                                    <a href="<?= base_url('setupPengeluaran/editKategori/' . $k['id']) ?>" class="btn btn-secondary"><i class="bi bi-pencil-square"></i></a>
                                                 </div>
                                             </td>
                                         </tr>

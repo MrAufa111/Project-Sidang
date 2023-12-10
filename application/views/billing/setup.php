@@ -58,7 +58,7 @@
                                             <td><?= $b['name_pen']; ?></td>
                                             <td><?= $b['name_in']; ?></td>
                                             <td>
-                                              
+
                                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                         Action
@@ -66,12 +66,15 @@
                                                     <ul class="dropdown-menu">
                                                         <li><a class="dropdown-item" href="<?= base_url('Setup_billing/edit/' . $b['id']); ?>"><i class="bi bi-pencil-square"></i>Edit</a></li>
                                                         <li><a class="dropdown-item btn-hapus" href="<?= base_url('Setup_billing/delete/' . $b['id']); ?>"><i class="bi bi-trash"></i>Delete</a></li>
-                                                        <li><a class="dropdown-item btn-email" style="cursor: pointer;" data-email="<?= $b['email'] ?>" data-username="<?= $b['name_client'] ?>"><i class="ri-mail-check-fill "></i>Kirim Email</a></li>
+                                                        <li><a class="dropdown-item btn-email" id="btn-email<?= $b['id'] ?>" style="cursor: pointer;" data-id="<?= $b['id'] ?>"><i class="ri-mail-check-fill "></i>Kirim Email</a></li>
 
                                                     </ul>
                                                 </div>
                                             </td>
                                         </tr>
+                                        <script script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
@@ -94,38 +97,39 @@
     $(document).ready(function() {
         let table = $("#dataTable").DataTable();
     });
+    var buttons = document.querySelectorAll('.btn-email');
+    buttons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var id = button.getAttribute('data-id');
 
-    $(document).on("click", ".btn-email", function(e) {
-        e.preventDefault();
-        const href = $(this).attr("href");
+            const href = $(this).attr("href");
 
-        Swal.fire({
-            title: 'Apakah Kamu akan Mengirim invoice?',
-            text: "Pastikan semua nya sudah benar",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, Kirim!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                let email = $('.btn-email').data('email');
-                let username = $('.btn-email').data('username');
-                $.ajax({
-                    url: "<?= base_url('Setup_billing/kirimemail') ?>",
-                    type: 'POST',
-                    data: {
-                        username: username,
-                        email: email
-                    },
-                    success: (function() {
-                        console.log('success');
-                    }),
-                    error: (function(error) {
-                        console.log(error)
+            Swal.fire({
+                title: 'Apakah Kamu akan Mengirim invoice?',
+                text: "Pastikan semua nya sudah benar",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Kirim!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "<?= base_url('Setup_billing/kirimemail') ?>",
+                        type: 'POST',
+                        data: {
+                            id: id
+                        },
+                        success: (function() {
+                            location.reload();
+                            console.log('success');
+                        }),
+                        error: (function(error) {
+                            console.log(error)
+                        })
                     })
-                })
-            }
+                }
+            });
         });
     });
 </script>

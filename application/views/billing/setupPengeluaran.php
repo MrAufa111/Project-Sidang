@@ -158,7 +158,13 @@
                 data: data
             },
             success: function() {
-                window.location.href = '<?= base_url('setupPengeluaran') ?>'
+                Swal.fire(
+                    'Success',
+                    'Tambah Pengeluaran',
+                    'success'
+                ).then((result) => {
+                    document.location.href = "<?= base_url('setupPengeluaran/tambah'); ?>";
+                });
             },
             error: function(error) {
                 console.log('Gagal menyimpan data ke database.');

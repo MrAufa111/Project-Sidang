@@ -184,4 +184,29 @@ class setupPengeluaran extends CI_Controller
         $writer = new Xlsx($spreadsheet);
         $writer->save("php://output");
     }
+    public function editkategori($id)
+    {
+        $data['title'] = 'Edit Pengeluaran';
+        $data['page'] = 'billing/editKategori';
+        $data['kategori'] = $this->db->get_where('kategori_pengeluaran', ['id' => $id])->row_array();
+        $this->load->view('billing/templates/index', $data);
+    }
+    public function deletek($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('kategori_pengeluaran');
+        $this->session->set_flashdata('notif', 'Berhasil Kategori Pengeluaran');
+        redirect('setupPengeluaran/kategori');
+    }
+    public function updatekategori()
+    {
+        $input = $this->input->post(NULL, TRUE);
+
+        $id = $input['id'];
+        $data['name_kategori'] = $input['kategori'];
+        $this->db->where('id', $id);
+        $this->db->update('kategori_pengeluaran', $data);
+        $this->session->set_flashdata('notif', 'Berhasil Menambahkan Kategori');
+        redirect('setupPengeluaran/kategori');
+    }
 }
